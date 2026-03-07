@@ -1,16 +1,16 @@
 ---
-title: BEDTOOLS
+title: bedtools
 description: bedtools 使用记录
-tags: [Python, code]
+tags: [shell, code]
 pubDate: May 05 2023
 series: Tools
 ---
-## intersect option
+## Intersect option
 The `intersect` command is the workhorse of the bedtools suite. It compares two or more `BED/BAM/VCF/GFF` files and identifies all the regions in the genome where the features in the two files overlap (that is, share at least one base pair in common).
 
-![image](/images/bedtools-intersect.png)
+![image](./images/bedtools-intersect.png)
 
-```
+```shell
 无参数直接输出overlap部分
 -wa 输出有overlap的A文件的整个区间
 -wb 输出有overlap的B文件的整个区间
@@ -20,11 +20,11 @@ The `intersect` command is the workhorse of the bedtools suite. It compares two 
 -F  对于B文件，最小overlap的区间的比例，大于他保留
 -r  两个文件reciprocal的overlap比例，拷贝数矫正用这个， 需要和-f联用，-f指定比例
 ```
-## merge option
+## Merge option
 Many datasets of genomic features have many individual features that overlap one another (e.g. aligments from a ChiP seq experiment). It is often useful to just cobine the overlapping into a single, contiguous interval. The bedtools merge command will do this for you.
 
-![image](/images/bedtools-merge.png)
+![image](./images/bedtools-merge.png)
 
-```
+```shell
 -d 指定两个要merge的区间之间的最大间隔大小（bp）
 ```
