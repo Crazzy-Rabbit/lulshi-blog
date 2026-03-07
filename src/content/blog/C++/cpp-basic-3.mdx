@@ -1,0 +1,653 @@
+---
+title: C++ 基础入门 - 第二章
+description: C++ 的条件判断与循环
+tags: [cpp, code]
+pubDate: Mar 07 2026
+series: C++-Basic
+---
+
+:::tip
+学条件判断和循环，不要只盯着语法形式。更重要的是脑子里先有流程图：先判断什么，再执行什么，什么时候停下来。
+:::
+
+## 什么是条件判断
+
+条件判断，就是根据某个条件的真假，决定程序接下来执行哪一段代码。
+
+在 C++ 里通常都靠 `if` 来完成。
+
+```cpp
+if (条件) {
+    条件为真时执行这里
+}
+```
+
+来看一个最简单的例子。
+
+```cpp
+#include <iostream>
+
+int main() {
+    int score = 85;
+
+    if (score >= 60) {
+        std::cout << "考试通过" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### if else
+
+很多时候，不只是判断成立时做什么，还要考虑不成立时做什么。
+
+这时就要用 `if else`。
+
+```cpp
+if (条件) {
+    条件为真时执行这里
+} else {
+    条件为假时执行这里
+}
+```
+
+例如。
+
+```cpp
+#include <iostream>
+
+int main() {
+    int temperature = 18;
+
+    if (temperature >= 20) {
+        std::cout << "今天比较暖和" << std::endl;
+    } else {
+        std::cout << "今天有点凉" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+这个结构非常常见。可以理解成程序站在路口，只能在两条路里选一条。
+
+### if else if else
+
+现实问题往往不只是两种情况，而是多种情况。
+
+比如分数不是只有及格和不及格，还可能分成优秀、良好、及格、不及格。
+
+这时可以用 `else if`。
+
+```cpp
+#include <iostream>
+
+int main() {
+    int score = 86;
+
+    if (score >= 90) {
+        std::cout << "优秀" << std::endl;
+    } else if (score >= 80) {
+        std::cout << "良好" << std::endl;
+    } else if (score >= 60) {
+        std::cout << "及格" << std::endl;
+    } else {
+        std::cout << "不及格" << std::endl;
+    }
+
+    return 0;
+}
+```
+:::caution
+要注意，`if else if else` 是从上到下依次判断的，一旦某个条件成立，后面的分支就不再看了。因此，多个区间判断时，通常要先写范围更高、更严格的条件，再写范围更低的条件。
+:::
+
+下面这种写法就是错的思路。
+
+```cpp
+if (score >= 60) {
+    std::cout << "及格" << std::endl;
+} else if (score >= 80) {
+    std::cout << "良好" << std::endl;
+}
+```
+
+## 逻辑运算
+
+有时一个条件不够，要把多个条件组合起来。C++ 提供了三个很常用的逻辑运算符。
+
+`&&` 表示并且。
+
+`||` 表示或者。
+
+`!` 表示取反。
+
+来看例子。
+
+```cpp
+#include <iostream>
+
+int main() {
+    int age = 22;
+    bool hasTicket = true;
+
+    if (age >= 18 && hasTicket) {
+        std::cout << "可以入场" << std::endl;
+    } else {
+        std::cout << "不能入场" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+这里要求两个条件都成立。
+
+再看一个或者的例子。
+
+```cpp
+#include <iostream>
+
+int main() {
+    bool isWeekend = false;
+    bool isHoliday = true;
+
+    if (isWeekend || isHoliday) {
+        std::cout << "今天可以休息一下" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+只要周末或者节假日，任意一个条件成立，就会输出。
+
+再看取反。
+
+```cpp
+#include <iostream>
+
+int main() {
+    bool isRaining = false;
+
+    if (!isRaining) {
+        std::cout << "可以出去散步" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+## switch
+
+如果一个变量只可能取几个固定值，比如星期编号、菜单选项、等级代码，那么 `switch` 会比一长串 `else if` 更整齐。
+
+例子如下。
+
+```cpp
+#include <iostream>
+
+int main() {
+    int day = 3;
+
+    switch (day) {
+        case 1:
+            std::cout << "星期一" << std::endl;
+            break;
+        case 2:
+            std::cout << "星期二" << std::endl;
+            break;
+        case 3:
+            std::cout << "星期三" << std::endl;
+            break;
+        case 4:
+            std::cout << "星期四" << std::endl;
+            break;
+        case 5:
+            std::cout << "星期五" << std::endl;
+            break;
+        default:
+            std::cout << "周末或无效输入" << std::endl;
+            break;
+    }
+
+    return 0;
+}
+```
+`break` 的作用是执行完当前分支后立刻跳出 `switch`。如果忘了写 `break`，程序会继续往下执行，这种现象叫贯穿。
+
+例如。
+
+```cpp
+#include <iostream>
+
+int main() {
+    int level = 1;
+
+    switch (level) {
+        case 1:
+            std::cout << "青铜" << std::endl;
+        case 2:
+            std::cout << "白银" << std::endl;
+        case 3:
+            std::cout << "黄金" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+这里虽然 `level` 是 1，但输出会是。
+
+```shell
+青铜
+白银
+黄金
+```
+
+因为没有 `break`，它会一路掉下去。
+
+:::caution
+初学 `switch` 时，先默认每个 `case` 后面都写 `break`。等以后真正理解“贯穿”并想主动使用它，再有意识地省略。
+:::
+
+## 什么是循环
+
+循环，就是让程序重复执行某段代码。
+
+循环就是告诉程序。
+- 从哪里开始。
+- 什么时候继续。
+- 每次怎么变化。
+- 什么时候结束。
+
+C++ 里最常见的循环有三种。`while` `do while` `for`
+
+### while
+
+`while`: 先判断，再决定做不做。只要条件成立，就一直执行。
+
+基本写法。
+```cpp
+while (条件) {
+    重复执行这里
+}
+```
+
+来看一个例子。
+
+```cpp
+#include <iostream>
+
+int main() {
+    int i = 1;
+
+    while (i <= 5) {
+        std::cout << i << std::endl;
+        i++;
+    }
+
+    return 0;
+}
+```
+
+输出结果是。
+```shell
+1
+2
+3
+4
+5
+```
+
+这里的逻辑是。先看 `i <= 5` 是否成立。如果成立，就输出 `i`。然后执行 `i++`，让 `i` 增加 1。再回去继续判断。一直到 `i` 变成 6，条件不成立，循环结束。
+
+### do while
+`do while`：先做一次，再判断要不要继续。和 `while` 的区别在于，它会先执行一次循环体，然后再判断条件。
+
+基本写法。
+
+```cpp
+do {
+    重复执行这里
+} while (条件);
+```
+
+例如。
+
+```cpp
+#include <iostream>
+
+int main() {
+    int i = 1;
+
+    do {
+        std::cout << i << std::endl;
+        i++;
+    } while (i <= 5);
+
+    return 0;
+}
+```
+输出同样是 1 到 5。但它和 `while` 的差别，在条件一开始就不成立时会特别明显。
+
+```cpp
+#include <iostream>
+
+int main() {
+    int i = 10;
+
+    do {
+        std::cout << "这句话至少会执行一次" << std::endl;
+    } while (i < 5);
+
+    return 0;
+}
+```
+
+即使 `i < 5` 一开始就是假，这句话依然会输出一次。所以 `while` 是先验票，再进场。`do while` 是先放你进去一次，然后再问你有没有票。
+
+### for
+
+如果你已经很清楚循环变量从哪里开始、到哪里结束、每次怎么变化，那么 `for` 通常是最方便的。
+
+基本写法。
+
+```cpp
+for (初始化; 条件; 更新) {
+    重复执行这里
+}
+```
+
+例如输出 1 到 5。
+
+```cpp
+#include <iostream>
+
+int main() {
+    for (int i = 1; i <= 5; i++) {
+        std::cout << i << std::endl;
+    }
+
+    return 0;
+}
+```
+
+这三部分可以理解成。`int i = 1` 表示循环从 1 开始。`i <= 5` 表示只要不超过 5 就继续。`i++` 表示每轮结束后加 1。对于固定次数的重复，`for` 往往是首选。
+
+### while 和 for 该怎么选
+
+其实它们都能互相改写，重点是表达意图。如果你知道循环次数或者循环变量的变化很明确，用 `for` 更紧凑。如果你更关心“只要条件满足就一直做”，而不是计数本身，用 `while` 更自然。
+
+比如：
+
+读入用户输入，直到输入 0 为止，这种场景常常更像 `while`。连续输出 1 到 100，这种场景更像 `for`。
+
+### break
+
+有时循环不一定非要走到条件自然结束，也可以中途提前停下来。这时可以用 `break`。
+
+```cpp
+#include <iostream>
+
+int main() {
+    for (int i = 1; i <= 10; i++) {
+        if (i == 6) {
+            break;
+        }
+        std::cout << i << std::endl;
+    }
+
+    return 0;
+}
+```
+
+输出结果是。
+
+```shell
+1
+2
+3
+4
+5
+```
+
+因为当 `i` 等于 6 时，执行 `break`，整个循环立刻结束。
+
+### continue
+
+和 `break` 不同，`continue` 不是结束整个循环，而是跳过当前这一轮，直接进入下一轮。
+
+```cpp
+#include <iostream>
+
+int main() {
+    for (int i = 1; i <= 5; i++) {
+        if (i == 3) {
+            continue;
+        }
+        std::cout << i << std::endl;
+    }
+
+    return 0;
+}
+```
+
+输出结果是。
+
+```shell
+1
+2
+4
+5
+```
+
+因为当 `i` 为 3 时，这一轮后面的输出语句被跳过了。
+
+## 嵌套循环
+
+有些问题需要一层重复里再套一层重复，比如打印矩形、九九乘法表、遍历二维结构。
+
+来看一个简单例子，打印一个 3 行 4 列的星号矩形。
+
+```cpp
+#include <iostream>
+
+int main() {
+    for (int row = 1; row <= 3; row++) {
+        for (int col = 1; col <= 4; col++) {
+            std::cout << "* ";
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
+```
+
+输出结果是。
+
+```shell
+* * * *
+* * * *
+* * * *
+```
+
+**外层循环**控制行数。**内层循环**控制每一行打印几个星号。这就是嵌套循环最常见的思路。
+
+## 案例练习
+
+### 例子一：判断奇偶数
+
+```cpp
+#include <iostream>
+
+int main() {
+    int num;
+    std::cout << "请输入一个整数：";
+    std::cin >> num;
+
+    if (num % 2 == 0) {
+        std::cout << num << " 是偶数" << std::endl;
+    } else {
+        std::cout << num << " 是奇数" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+这里 `%` 是取模运算。`num % 2 == 0` 表示这个数除以 2 后余数为 0，也就是偶数。
+
+### 例子二：计算 1 到 100 的和
+
+循环非常适合做累加。
+
+```cpp
+#include <iostream>
+
+int main() {
+    int sum = 0;
+
+    for (int i = 1; i <= 100; i++) {
+        sum += i;
+    }
+
+    std::cout << "1 到 100 的和是：" << sum << std::endl;
+
+    return 0;
+}
+```
+
+`sum += i` 等价于 `sum = sum + i`。
+
+### 例子三：找出 1 到 20 之间所有能被 3 整除的数
+
+```cpp
+#include <iostream>
+
+int main() {
+    for (int i = 1; i <= 20; i++) {
+        if (i % 3 == 0) {
+            std::cout << i << " ";
+        }
+    }
+
+    std::cout << std::endl;
+    return 0;
+}
+```
+
+输出结果是。
+
+```shell
+3 6 9 12 15 18
+```
+
+### 例子四：反复读入，直到输入正确
+
+这个场景在真实程序里特别常见。比如要求用户输入一个正数，如果输错了，就继续让他输。
+
+```cpp
+#include <iostream>
+
+int main() {
+    int num;
+
+    std::cout << "请输入一个正数：" << std::endl;
+    std::cin >> num;
+
+    while (num <= 0) {
+        std::cout << "输入无效，请重新输入正数：" << std::endl;
+        std::cin >> num;
+    }
+
+    std::cout << "你输入的正数是：" << num << std::endl;
+
+    return 0;
+}
+```
+
+### 例子五：打印九九乘法表
+
+嵌套循环的经典练习。
+
+```cpp
+#include <iostream>
+
+int main() {
+    for (int i = 1; i <= 9; i++) {
+        for (int j = 1; j <= i; j++) {
+            std::cout << j << "x" << i << "=" << i * j << "\t";
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
+```
+
+这里外层循环控制第几行。内层循环控制当前行要打印到哪一列。
+
+## 初学者最容易犯的错
+
+### 循环变量忘记更新。
+
+比如 `while (i <= 5)` 里忘了写 `i++`，那么条件永远成立，程序会一直循环下去，这叫死循环。
+
+```cpp
+#include <iostream>
+
+int main() {
+    int i = 1;
+
+    while (i <= 5) {
+        std::cout << i << std::endl;
+    }
+
+    return 0;
+}
+```
+
+这段程序就停不下来，因为 `i` 永远是 1。
+
+### `switch` 里忘记写 `break`。
+
+:::caution
+循环一旦出问题，最常见的症状有两个：要么少跑一轮，要么永远停不下来。调试时优先检查条件和更新语句。
+:::
+
+## 巩固练习
+
+
+第一题，输入一个整数，判断它是正数、负数还是零。
+
+第二题，输入一个年份，判断它是否为闰年。
+
+第三题，用 `for` 循环输出 1 到 50 中所有偶数。
+
+第四题，计算 1 到 n 的和，其中 n 由用户输入。
+
+第五题，输入一个整数 n，输出 n 行星号三角形。
+
+例如当 `n = 4` 时，输出。
+
+```shell
+*
+**
+***
+****
+```
+
+第六题，反复输入密码，直到输入正确为止。
+
+## 本章小结
+
+- `if`、`if else`、`else if` 让程序根据条件走不同路径。
+- `while` 适合先判断再执行。
+- `do while` 适合至少执行一次的场景。
+- `for` 适合计数明确的重复任务。
+- `break`、`continue`、嵌套循环。
+
+## 参考资料
