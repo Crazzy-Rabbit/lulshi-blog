@@ -45,7 +45,7 @@ const articleDate = pubDate.toISOString();
 		{
 			heroImage && (
 				<div class="aspect-h-9 aspect-w-16 mb-6 w-full">
-					<img src={heroImage.url} alt={heroImage.alt} />
+					<img src={heroImage.src} alt={heroImage.alt ?? title} />
 				</div>
 			)
 		}

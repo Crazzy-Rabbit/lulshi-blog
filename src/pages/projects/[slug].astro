@@ -4,7 +4,6 @@ import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
 import BlogPost from "@/layouts/BlogPost";
-import Comments from "@/components/Comments";
 
 import { filterByLanguage, getSlugFromCollectionEntry } from "@/utils";
 import { getSupportedLanguages, type SupportedLanguage } from "src/utils/i18n";
@@ -27,7 +26,7 @@ export const getStaticPaths = (async () => {
 
       return {
         params: { lang, slug },
-        props: { post }, // ✅ 和 blog 一样：props 统一叫 post
+        props: { post },
       };
     });
   });
@@ -36,6 +35,14 @@ export const getStaticPaths = (async () => {
 export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { post } = Astro.props;
+
+console.log("[project route] id =", post.id);
+console.log("[project route] collection =", post.collection);
+console.log("[project route] title =", post.data.title);
+console.log("[project route] tags =", post.data.tags);
+console.log("[project route] series =", post.data.series);
+console.log("[project route] heroImage =", post.data.heroImage);
+
 const { Content } = await (post as CollectionEntry<"project">).render();
 ---
 

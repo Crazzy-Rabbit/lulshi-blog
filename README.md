@@ -1,13 +1,8 @@
-## Live Demo
-
-[wjwei.blog](https://www.wjwei.blog)
-
 ## Summary
 
 A personal blog based on Astro, with rich features and classy minimalist design.
 
 ## Development
-
 Based on [wjwei-blog](https://github.com/wjwei-handsome/wjwei-blog).
 
 ## Features
@@ -27,14 +22,40 @@ Based on [wjwei-blog](https://github.com/wjwei-handsome/wjwei-blog).
 - [Astro Icon](https://github.com/natemoo-re/astro-icon) svg icon component
 - Back To Top button
 
+## Commands
 
-## push
+All commands are run from the root of the project, from a terminal:
 
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+
+## Build
 ```shell
-git init
-git add .
-git commit -m "init astro blog"
-git branch -M main
-git remote add origin hhttps://github.com/Crazzy-Rabbit/lulshi-blog.git
-git push -u origin main
+# rmdir /s /q .astro
+# rmdir /s /q dist
+
+npm install
+npm run build
+
+npm run preview
 ```
+
+## Push
+```shell
+# git init
+# git branch -M main
+# git remote add origin https://github.com/Crazzy-Rabbit/lulshi-blog.git
+
+git add .
+git commit -m "fix astro build types"
+git push
+```
+
+
