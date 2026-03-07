@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760">
+<style>
+  .title{font:700 34px sans-serif; fill:#1f2937}
+  .subtitle{font:600 24px sans-serif; fill:#334155}
+  .txt{font:500 22px sans-serif; fill:#111827}
+  .small{font:500 18px sans-serif; fill:#475569}
+  .box{fill:#fff; stroke:#2563eb; stroke-width:3; rx:26; ry:26}
+  .good{fill:#f0fdf4; stroke:#16a34a; stroke-width:3; rx:26; ry:26}
+  .bad{fill:#fff7ed; stroke:#ea580c; stroke-width:3; rx:26; ry:26}
+  .arrow{stroke:#475569; stroke-width:4; fill:none; marker-end:url(#arrow)}
+</style>
+<defs>
+  <marker id="arrow" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+  </marker>
+</defs>
+<text x="640" y="54" text-anchor="middle" class="title">低秩变换压缩的是数据，不是 SNP 参数</text>
+
+<rect x="80" y="120" width="300" height="220" class="box"/>
+<text x="230" y="165" text-anchor="middle" class="subtitle">原始 summary 模型</text>
+<text x="230" y="215" text-anchor="middle" class="txt">观测</text>
+<text x="230" y="248" text-anchor="middle" class="small">b 是 m 维</text>
+<text x="230" y="292" text-anchor="middle" class="txt">参数</text>
+<text x="230" y="325" text-anchor="middle" class="small">β 也是 m 维</text>
+
+<rect x="490" y="120" width="300" height="220" class="good"/>
+<text x="640" y="165" text-anchor="middle" class="subtitle">SBayesRC 低秩做法</text>
+<text x="640" y="215" text-anchor="middle" class="txt">观测被压缩</text>
+<text x="640" y="248" text-anchor="middle" class="small">w 是 q 维，q ≪ m</text>
+<text x="640" y="292" text-anchor="middle" class="txt">参数不变</text>
+<text x="640" y="325" text-anchor="middle" class="small">仍然估计每个 SNP 的 βⱼ</text>
+
+<rect x="900" y="120" width="300" height="220" class="bad"/>
+<text x="1050" y="165" text-anchor="middle" class="subtitle">不能这样做</text>
+<text x="1050" y="215" text-anchor="middle" class="txt">把参数也压缩成 PC 效应</text>
+<text x="1050" y="248" text-anchor="middle" class="small">β* = ΛUᵀβ</text>
+<text x="1050" y="292" text-anchor="middle" class="txt">后果</text>
+<text x="1050" y="325" text-anchor="middle" class="small">注释找不到具体 SNP 对象</text>
+
+<path d="M380 230 C430 230, 450 230, 485 230" class="arrow"/>
+<path d="M790 230 C840 230, 860 230, 895 230" class="arrow"/>
+
+<rect x="120" y="460" width="1040" height="190" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5" rx="28" ry="28"/>
+<text x="640" y="505" text-anchor="middle" class="subtitle">为什么这一步很关键</text>
+<text x="640" y="560" text-anchor="middle" class="txt">功能注释始终作用在每个 SNP 的 beta_j 先验上</text>
+<text x="640" y="600" text-anchor="middle" class="small">所以可以一边享受 q ≪ m 的计算优势，一边保留 SNP 级别的生物学解释</text>
+</svg>

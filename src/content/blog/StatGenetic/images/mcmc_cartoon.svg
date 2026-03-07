@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,3 L0,6 z" fill="#333"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="700" fill="#fbfbfd"/>
+  <text x="600" y="48" text-anchor="middle" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="#222">
+    MCMC intuition: wander, test, accept or reject
+  </text>
+
+  <!-- panel backgrounds -->
+  <rect x="40" y="85" width="350" height="560" rx="24" fill="#ffffff" stroke="#d9dbe3" filter="url(#shadow)"/>
+  <rect x="425" y="85" width="350" height="560" rx="24" fill="#ffffff" stroke="#d9dbe3" filter="url(#shadow)"/>
+  <rect x="810" y="85" width="350" height="560" rx="24" fill="#ffffff" stroke="#d9dbe3" filter="url(#shadow)"/>
+
+  <text x="215" y="122" text-anchor="middle" font-size="24" font-family="Arial" font-weight="700" fill="#333">1. Start at current state</text>
+  <text x="600" y="122" text-anchor="middle" font-size="24" font-family="Arial" font-weight="700" fill="#333">2. Propose a new state</text>
+  <text x="985" y="122" text-anchor="middle" font-size="24" font-family="Arial" font-weight="700" fill="#333">3. Accept or reject</text>
+
+  <!-- hills -->
+  <path d="M65 530 C110 470, 160 450, 215 470 C275 495, 330 435, 365 500" fill="none" stroke="#596275" stroke-width="5"/>
+  <path d="M450 530 C500 470, 550 450, 600 470 C660 495, 715 435, 750 500" fill="none" stroke="#596275" stroke-width="5"/>
+  <path d="M835 530 C885 470, 935 450, 985 470 C1045 495, 1100 435, 1135 500" fill="none" stroke="#596275" stroke-width="5"/>
+
+  <!-- states -->
+  <circle cx="210" cy="474" r="13" fill="#111"/>
+  <text x="210" y="445" text-anchor="middle" font-size="24" font-family="Arial" fill="#111">xₜ</text>
+
+  <circle cx="585" cy="472" r="13" fill="#111"/>
+  <circle cx="680" cy="470" r="13" fill="#777"/>
+  <text x="585" y="443" text-anchor="middle" font-size="24" font-family="Arial" fill="#111">xₜ</text>
+  <text x="680" y="441" text-anchor="middle" font-size="24" font-family="Arial" fill="#444">x*</text>
+  <line x1="598" y1="470" x2="665" y2="470" stroke="#333" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <circle cx="950" cy="473" r="13" fill="#111"/>
+  <circle cx="1045" cy="458" r="13" fill="#0a7a45"/>
+  <text x="950" y="444" text-anchor="middle" font-size="24" font-family="Arial" fill="#111">xₜ</text>
+  <text x="1045" y="429" text-anchor="middle" font-size="24" font-family="Arial" fill="#0a7a45">accepted</text>
+  <line x1="964" y1="470" x2="1030" y2="459" stroke="#0a7a45" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <!-- stick figures -->
+  <circle cx="150" cy="250" r="22" fill="none" stroke="#333" stroke-width="4"/>
+  <line x1="150" y1="272" x2="150" y2="340" stroke="#333" stroke-width="4"/>
+  <line x1="150" y1="292" x2="120" y2="320" stroke="#333" stroke-width="4"/>
+  <line x1="150" y1="292" x2="180" y2="320" stroke="#333" stroke-width="4"/>
+  <line x1="150" y1="340" x2="125" y2="385" stroke="#333" stroke-width="4"/>
+  <line x1="150" y1="340" x2="175" y2="385" stroke="#333" stroke-width="4"/>
+  <text x="215" y="250" font-size="24" font-family="Arial" fill="#333">"I only know</text>
+  <text x="215" y="282" font-size="24" font-family="Arial" fill="#333">where I am now."</text>
+
+  <circle cx="540" cy="250" r="22" fill="none" stroke="#333" stroke-width="4"/>
+  <line x1="540" y1="272" x2="540" y2="340" stroke="#333" stroke-width="4"/>
+  <line x1="540" y1="292" x2="510" y2="320" stroke="#333" stroke-width="4"/>
+  <line x1="540" y1="292" x2="570" y2="320" stroke="#333" stroke-width="4"/>
+  <line x1="540" y1="340" x2="515" y2="385" stroke="#333" stroke-width="4"/>
+  <line x1="540" y1="340" x2="565" y2="385" stroke="#333" stroke-width="4"/>
+  <text x="590" y="250" font-size="24" font-family="Arial" fill="#333">"Let me try a jump</text>
+  <text x="590" y="282" font-size="24" font-family="Arial" fill="#333">to a nearby place."</text>
+
+  <circle cx="910" cy="250" r="22" fill="none" stroke="#333" stroke-width="4"/>
+  <line x1="910" y1="272" x2="910" y2="340" stroke="#333" stroke-width="4"/>
+  <line x1="910" y1="292" x2="880" y2="320" stroke="#333" stroke-width="4"/>
+  <line x1="910" y1="292" x2="940" y2="320" stroke="#333" stroke-width="4"/>
+  <line x1="910" y1="340" x2="885" y2="385" stroke="#333" stroke-width="4"/>
+  <line x1="910" y1="340" x2="935" y2="385" stroke="#333" stroke-width="4"/>
+  <text x="960" y="236" font-size="24" font-family="Arial" fill="#333">"If the new place is better,</text>
+  <text x="960" y="268" font-size="24" font-family="Arial" fill="#333">I usually move."</text>
+  <text x="960" y="300" font-size="24" font-family="Arial" fill="#333">"If worse, I may still move</text>
+  <text x="960" y="332" font-size="24" font-family="Arial" fill="#333">with a small probability."</text>
+
+  <!-- accept/reject boxes -->
+  <rect x="875" y="540" width="120" height="58" rx="14" fill="#e9f7ef" stroke="#0a7a45"/>
+  <text x="935" y="576" text-anchor="middle" font-size="24" font-family="Arial" font-weight="700" fill="#0a7a45">Accept</text>
+  <rect x="1010" y="540" width="120" height="58" rx="14" fill="#fff0f0" stroke="#c73b3b"/>
+  <text x="1070" y="576" text-anchor="middle" font-size="24" font-family="Arial" font-weight="700" fill="#c73b3b">Reject</text>
+
+  <text x="600" y="670" text-anchor="middle" font-size="22" font-family="Arial" fill="#555">
+    Many accepted/rejected steps together form a Markov chain whose long-run distribution matches the target distribution.
+  </text>
+</svg>

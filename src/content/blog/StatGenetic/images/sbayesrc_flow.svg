@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<style>
+  .title{font:700 34px sans-serif; fill:#1f2937}
+  .subtitle{font:600 24px sans-serif; fill:#374151}
+  .txt{font:500 22px sans-serif; fill:#111827}
+  .small{font:500 18px sans-serif; fill:#4b5563}
+  .box{fill:#ffffff; stroke:#2563eb; stroke-width:3; rx:24; ry:24}
+  .box2{fill:#f8fbff; stroke:#0f766e; stroke-width:3; rx:24; ry:24}
+  .box3{fill:#fffaf3; stroke:#d97706; stroke-width:3; rx:24; ry:24}
+  .arrow{stroke:#475569; stroke-width:4; fill:none; marker-end:url(#arrow)}
+</style>
+<defs>
+  <marker id="arrow" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+  </marker>
+</defs>
+<text x="640" y="56" text-anchor="middle" class="title">SBayesRC 的整体逻辑</text>
+
+<rect x="70" y="110" width="330" height="180" class="box"/>
+<text x="235" y="156" text-anchor="middle" class="subtitle">第一层 观测模型</text>
+<text x="235" y="198" text-anchor="middle" class="txt">个体模型</text>
+<text x="235" y="232" text-anchor="middle" class="small">y = Xβ + e</text>
+<text x="235" y="270" text-anchor="middle" class="txt">推到 summary 形式</text>
+<text x="235" y="304" text-anchor="middle" class="small">b = Rβ + ε</text>
+
+<rect x="475" y="110" width="330" height="180" class="box2"/>
+<text x="640" y="156" text-anchor="middle" class="subtitle">第二层 低秩化</text>
+<text x="640" y="198" text-anchor="middle" class="txt">按 LD block 做特征分解</text>
+<text x="640" y="232" text-anchor="middle" class="small">R = UΛUᵀ</text>
+<text x="640" y="270" text-anchor="middle" class="txt">把相关误差白化</text>
+<text x="640" y="304" text-anchor="middle" class="small">w = Qβ + ε</text>
+
+<rect x="880" y="110" width="330" height="180" class="box3"/>
+<text x="1045" y="156" text-anchor="middle" class="subtitle">第三层 注释先验</text>
+<text x="1045" y="198" text-anchor="middle" class="txt">每个 SNP 有自己的混合权重</text>
+<text x="1045" y="232" text-anchor="middle" class="small">βⱼ ~ Σ πⱼk N(0, γk σg²)</text>
+<text x="1045" y="270" text-anchor="middle" class="txt">注释影响进桶概率</text>
+<text x="1045" y="304" text-anchor="middle" class="small">probit + Gibbs</text>
+
+<path d="M400 200 C430 200, 445 200, 470 200" class="arrow"/>
+<path d="M805 200 C835 200, 850 200, 875 200" class="arrow"/>
+
+<rect x="120" y="420" width="1040" height="190" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5" rx="28" ry="28"/>
+<text x="640" y="464" text-anchor="middle" class="subtitle">最后输出什么</text>
+<text x="270" y="526" text-anchor="middle" class="txt">联合 SNP 效应</text>
+<text x="270" y="560" text-anchor="middle" class="small">可直接做 PGS 权重</text>
+<text x="520" y="526" text-anchor="middle" class="txt">SNP 的 PIP</text>
+<text x="520" y="560" text-anchor="middle" class="small">更像 trait association 概率</text>
+<text x="760" y="526" text-anchor="middle" class="txt">遗传力与 polygenicity</text>
+<text x="760" y="560" text-anchor="middle" class="small">由 MCMC 后验均值给出</text>
+<text x="1010" y="526" text-anchor="middle" class="txt">注释富集参数</text>
+<text x="1010" y="560" text-anchor="middle" class="small">看哪些功能区更重要</text>
+</svg>

@@ -1,0 +1,44 @@
+---
+import type { InferGetStaticPropsType, GetStaticPaths } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+
+import BlogPost from "@/layouts/BlogPost";
+import Comments from "@/components/Comments";
+
+import { filterByLanguage, getSlugFromCollectionEntry } from "@/utils";
+import { getSupportedLanguages, type SupportedLanguage } from "src/utils/i18n";
+
+export const getStaticPaths = (async () => {
+  const projectEntries = await getCollection("project", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
+
+  return getSupportedLanguages().flatMap((lang) => {
+    const filteredByLanguage = filterByLanguage(
+      projectEntries,
+      lang as SupportedLanguage,
+    );
+
+    return filteredByLanguage.map((post) => {
+      const slug = getSlugFromCollectionEntry(
+        post as CollectionEntry<"project">,
+      );
+
+      return {
+        params: { lang, slug },
+        props: { post }, // ✅ 和 blog 一样：props 统一叫 post
+      };
+    });
+  });
+}) satisfies GetStaticPaths;
+
+export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { post } = Astro.props;
+const { Content } = await (post as CollectionEntry<"project">).render();
+---
+
+<BlogPost post={post as CollectionEntry<"blog" | "project">}>
+  <Content />
+</BlogPost>

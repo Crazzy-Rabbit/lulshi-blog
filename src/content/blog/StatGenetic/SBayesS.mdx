@@ -1,0 +1,648 @@
+---
+title: SBayesS
+description: GCTB中，评估自然选择的 SBayesS 算法的推导过程和简单实现
+tags: [Python, code]
+pubDate: Mar 06 2026
+series: StatGenetic
+---
+`GCTB`软件也可以说是很常用的一个软件了，基于贝叶斯去做一些包括`PRS`，`nature selection`，`fine mapping`等一系列事情，
+本文介绍的SBayesS用来估计性状的自然选择
+
+## (1) 假设
+
+**(A) 个体层面的遗传模型假设**
+
+对一个 GWAS 队列（通常取互不相关的个体），假设线性加性模型
+$$
+y = X\beta + e
+$$
+
+- $y$: 表型（已经校正所有固定效应/协变量后的残差表型向量）
+- $X$: 基因型剂量矩阵（0/1/2），按列中心化（每个 SNP 列减去均值）
+- $\beta$: 联合多 SNP 回归下的“真实/联合”效应（per-allele effect）
+- $e$: 残差，假设
+$$
+Var(e) = I \epsilon_e^2
+$$
+
+**(B) HWE 与基因型方差**
+假设 Hardy–Weinberg equilibrium（HWE）。则 SNP $j$ 的基因型剂量（0/1/2）的方差为
+$$
+h_j = 2p_jq_j, \quad q_j = 1 - p_j
+$$
+其中 $p_j$ 是 MAF。
+
+**(C) summary stats 与 LD reference 的假设**
+
+SBayesS 不需要 $X, y$ 原始数据，但它依赖：
+- GWAS 输出的每 SNP 边际（single-SNP）效应估计 $b_j$、标准误 $SE_j$、样本量 $n_j$。
+- 一个参考样本（LD reference）计算得到的 LD 相关矩阵（在实现里会做稀疏化）。
+:::caution
+关键隐含假设：reference 的 LD 结构要与 GWAS 样本尽量匹配（同祖源/相近群体），否则会影响收敛与偏差。
+论文也强调 LD reference 偏离会导致 $\hat R$ 不收敛等问题。
+:::
+
+---
+
+## (2) 核心等式
+把“联合回归”重写成“用 GWAS 边际效应 $b$ 作为观测量”的线性模型。
+
+**(A) 定义 SNP $j$ 的变异总量 $D_{jj} = X_j^{\top}X_j$**
+
+令 $X_j$ 是 $X$ 的第 $j$ 列（中心化后的基因型剂量向量），定义SNP之间的方差矩阵，即对角矩阵 $D$：
+$$
+D = diag(X^{\top}X)
+$$
+
+$$
+D_{jj} = X_j^{\top}X_j, \quad D_{jj} = \sum _{i=1}^{n_j} x_{ij}^2
+$$
+因此，$D_{jj}$就是中心化基因型平方和，即 $n_jVar(X_j)$
+
+在 HWE 且样本量为 $n_j$（允许每 SNP 不同缺失导致 $n_j$ 不同）时，有近似关系
+$$
+D_{jj} = 2p_jq_jn_j =  h_jn_j
+$$
+
+**(B) 两边左乘 $D^{-1}X_j^{\top}$**：
+
+把 $\beta$ 映射到边际估计 $b$ 从
+$$
+y = X\beta + e
+$$
+
+两边左乘 $D^{-1}X_j^{\top}$:
+$$
+D^{-1}X^{\top}y = D^{-1}X^{\top}X \beta + D^{-1}X^{\top} e
+$$
+
+定义
+$$
+b \equiv D^{-1}X^{\top}y, \quad \epsilon \equiv D^{-1}X^{\top}e
+$$
+
+注意 $b$ 的第 $j$ 个分量就是 GWAS 单 SNP 回归的 OLS 估计：
+$$
+b_j = \frac {X_j^{\top} y} {X_j^{\top}X_j}
+$$
+这正是我们从 summary stats 里拿到的“边际效应”。
+
+**(C) $X^{\top}X$ 即 $nCov(X)$ 写成 LD 相关矩阵 $B$**
+
+定义 SNP $j, k$ 的 LD 相关矩阵
+$$
+B_{jk} = corr (X_j, X_k) = \frac {Cov (X_j, X_k)} {\sqrt{Var(X_j)Var(X_k)}}
+$$
+
+用矩阵表达，其中，协方差矩阵为
+$$
+\sum = \frac {1} {n} X^{\top} X
+$$
+
+代入 $D = nVar(X)$
+
+$$
+B = D^{-1/2} X^{\top} X D^{-1/2}
+$$
+
+于是
+$$
+D^{-1}X^{\top}X = D^{-1/2} B D^{1/2}
+$$
+
+再定义
+$$
+W = D^{1-/2} B D^{1-/2}
+$$
+就得到 summary-data 线性模型：
+$$
+\boxed{\ \mathbf b=\mathbf W\boldsymbol\beta+\boldsymbol\varepsilon\ }
+$$
+
+**(D) 从 $\mathbf b=\mathbf W\boldsymbol\beta+\boldsymbol\varepsilon$ 推到标量式**
+
+前面的推导过程可以得到以下公式
+- $\mathbf D=\mathrm{diag}(D_1,\dots,D_m)$，$D_j=\mathbf X_j^\top\mathbf X_j$
+- $\mathbf B=\mathbf D^{-1/2}\mathbf X^\top\mathbf X\mathbf D^{-1/2}$
+- $\mathbf W=\mathbf D^{-1/2}\mathbf B\mathbf D^{1/2}$
+- $\mathbf b=\mathbf D^{-1}\mathbf X^\top\mathbf y$
+- $\boldsymbol\varepsilon=\mathbf D^{-1}\mathbf X^\top\mathbf e$
+
+并且 $\mathbf B$ 的元素就是“中心化基因型的相关系数（LD 相关）”：
+
+$$
+B_{jk}=\frac{\mathbf X_j^\top\mathbf X_k}{\sqrt{(\mathbf X_j^\top\mathbf X_j)(\mathbf X_k^\top\mathbf X_k)}}
+=\frac{\mathbf X_j^\top\mathbf X_k}{\sqrt{D_jD_k}}
+$$
+
+
+**先从矩阵式取第 $j$ 个分量**
+
+从
+
+$$
+\mathbf b=\mathbf W\boldsymbol\beta+\boldsymbol\varepsilon
+$$
+
+取第 $j$ 个分量（第 $j$ 行乘向量）：
+
+$$
+b_j=\sum_{k=1}^m W_{jk}\beta_k+\varepsilon_j
+$$
+
+把 $W_{jk}$ 从 $\mathbf W=\mathbf D^{-1/2}\mathbf B\mathbf D^{1/2}$ 展开到元素级
+
+按矩阵乘法：
+
+$$
+W_{jk}=(\mathbf D^{-1/2}\mathbf B\mathbf D^{1/2})_{jk}
+=\sum_{a=1}^m\sum_{c=1}^m(\mathbf D^{-1/2})_{ja}\,B_{ac}\,(\mathbf D^{1/2})_{ck}
+$$
+
+由于 $\mathbf D^{-1/2}$ 和 $\mathbf D^{1/2}$ 都是对角矩阵，求和只剩唯一一项：
+
+$$
+W_{jk}=D_j^{-1/2}\,B_{jk}\,D_k^{1/2}
+$$
+
+
+代回得到：
+
+$$
+b_j=\sum_{k=1}^m D_j^{-1/2}\,B_{jk}\,D_k^{1/2}\,\beta_k+\varepsilon_j
+$$
+
+
+**用 $D_j\approx n_jh_j$ 把比例写成 $h$ 与 $n$**
+
+在 HWE 下 $\mathrm{Var}(X_{ij})=h_j$，因此
+
+$$
+D_j=\mathbf X_j^\top\mathbf X_j \approx n_jh_j,\quad D_k\approx n_kh_k
+$$
+
+所以
+
+$$
+D_j^{-1/2}D_k^{1/2}\approx \sqrt{\frac{n_kh_k}{n_jh_j}}
+$$
+
+最终得到论文常写形式：
+
+$$
+\boxed{\ b_j=\sum_{k=1}^m \sqrt{\frac{h_kn_k}{h_jn_j}}\,B_{jk}\beta_k+\varepsilon_j\ }
+$$
+
+
+**(E) 噪声项的方差（为什么残差相关、而且与 LD 有关）**
+
+:::tip
+单 SNP 的边际估计 $b_j$ 不是只看 SNP $j$，它会“顺带”吃到与它 LD 的其它 SNP 的信息；同样，残差 $\mathbf e$ 经过 $\mathbf X^\top$ 投影后，不同 SNP 的噪声也会因为 LD 而相关。
+:::
+
+形式上：
+
+$$
+\boldsymbol\varepsilon=\mathbf D^{-1}\mathbf X^\top\mathbf e
+$$
+
+在 $\mathrm{Var}(\mathbf e)=\mathbf I\sigma_e^2$ 下：
+
+$$
+\mathrm{Var}(\boldsymbol\varepsilon)=\mathbf D^{-1}\mathbf X^\top\mathbf X\mathbf D^{-1}\sigma_e^2
+=\mathbf D^{-1/2}\mathbf B\mathbf D^{-1/2}\sigma_e^2
+$$
+
+令
+
+$$
+\mathbf R\equiv \mathbf D^{-1/2}\mathbf B\mathbf D^{-1/2}
+$$
+
+则
+
+$$
+\boxed{\ \mathrm{Var}(\boldsymbol\varepsilon)=\mathbf R\sigma_e^2\ }
+$$
+
+并且对角线满足
+
+$$
+R_{jj}=\frac{1}{D_j}\quad\Rightarrow\quad \mathrm{Var}(b_j)=\frac{\sigma_e^2}{D_j}
+$$
+
+这和单 SNP OLS 的经典方差完全一致。
+
+
+---
+
+## (3) 先验
+
+SBayesS 的先验就两件事：
+
+1) 不是所有 SNP 都有真实效应：用 **稀疏（spike-and-slab）** 控制有多少 SNP 真正非零（$\pi$）。  
+2) 真实效应的“大小分布”会随 MAF（更准确随 $h_j$）变化：用 $S$ 表达这种趋势。
+
+核心先验：
+
+$$
+\beta_j=
+\begin{cases}
+\text{来自 } \mathcal N(0,\ h_j^S\sigma_\beta^2), & \text{概率 } \pi \\
+0, & \text{概率 } 1-\pi
+\end{cases}
+$$
+
+解释：
+- $\pi$ 越大：越多 SNP 有效应（更 polygenic）
+- $S<0$ 往往意味着：稀有变异（$h_j$ 小）允许更大的效应方差（统计上常被解读为负向选择的信号）
+
+:::tip
+因为 $h_j=2p_j(1-p_j)$ 在稀有变异时更小。
+若 $S<0$，则 $h_j^S$ 变大，意味着 **更稀有的 SNP 更可能有更大的效应方差**，
+这与负向选择情景相符。
+:::
+
+**2. 超参数先验（GCTB 的常用设定）**
+
+论文常用：
+- $S\sim \mathcal N(0,1)$
+- $\pi\sim\mathrm{Beta}(1,1)$（[0,1] 上均匀）
+- $\sigma_\beta^2,\sigma_e^2$：scaled inverse-$\chi^2$ 先验（便于 Gibbs 更新），其尺度用“先验的 $h_0^2,\pi_0,S_0$”与表型方差估计 $V_P$ 来定
+
+---
+
+## (4) 似然 (likelihood)
+我们已经把问题变成了 “用 $\mathbf b$ 当观测量”的线性模型：
+
+$$
+\mathbf b=\mathbf W\boldsymbol\beta+\boldsymbol\varepsilon,\quad \mathrm{Var}(\boldsymbol\varepsilon)=\mathbf R\sigma_e^2
+$$
+
+所以写成多元正态：
+
+$$
+\mathbf b\mid \boldsymbol\beta,\sigma_e^2 \sim \mathcal{MVN}(\mathbf W\boldsymbol\beta,\ \mathbf R\sigma_e^2)
+$$
+
+---
+
+## (5) MCMC 
+为了处理“有的 SNP 为 0、有的非 0”，引入指示变量：
+
+$$
+\delta_j\sim \mathrm{Bernoulli}(\pi),\quad
+\beta_j\mid \delta_j=
+\begin{cases}
+\mathcal N(0,h_j^S\sigma_\beta^2), & \delta_j=1 \\
+0, & \delta_j=0
+\end{cases}
+$$
+
+然后每轮迭代大致做：
+1. 更新每个 SNP 的 $(\delta_j,\beta_j)$
+- 先算“这个 SNP 要不要开”（更新 $\delta_j$）
+- 若开了（$\delta_j=1$），再从一个正态分布抽 $\beta_j$
+
+可以把它理解成：“逐个 SNP 地决定要不要纳入模型，并给出一个合理的效应值”。
+
+2. 更新方差类参数（通常共轭、很快）
+- $\sigma_e^2$（残差方差）
+- $\sigma_\beta^2$（效应方差整体缩放）
+- 还有一些派生量例如遗传方差 $\sigma_g^2$、SNP 解释的遗传率 $h^2_{\mathrm{SNP}}$
+
+3. 更新 $S$（不共轭，用 HMC）
+因为 $S$ 出现在 $h_j^S$ 里，无法像方差那样简单共轭抽样，所以用 HMC 更新（理解为“更高级的采样步”即可）。
+
+## (6) 为什么要稀疏 LD？为什么又要“修正”？
+1. 稀疏 LD 的目的
+:::tip
+LD 矩阵太大（$m$ 可到百万），存全矩阵不现实。所以 GCTB 会把“很小、很可能是抽样噪声”的 LD 相关置零，得到稀疏矩阵，提高速度、节省内存。
+:::
+2. 稀疏化的副作用
+:::caution
+把很多小相关都置零后，相当于“假装那些 SNP 完全无关”。  
+:::
+
+3. 修正思路
+:::note
+不强行拟合这些被丢弃的小相关，把它们当成“额外噪声”，吸收到残差方差里，于是每个 SNP 的噪声方差变成异方差 $\sigma_{e,j}^{2*}$。
+:::
+
+核心是：**稀疏化带来的不确定性被塞回噪声项**。
+
+论文给出一个形式：
+
+$$
+\sigma_{e,j}^{2*}
+=
+\left(\frac{n_j}{m}s_j^2+\frac{m_j^0}{m}\right)\sigma_g^2+\sigma_e^2
+$$
+
+可以把它理解成：  
+“原本的噪声 $\sigma_e^2$ + 一项与 LD 抽样误差/丢弃 LD 规模相关的补偿项”。
+
+## (7) 小结
+SBayesS：把 summary stats 的边际效应向量 $\mathbf b$ 当作观测量，在
+
+$$
+\mathbf b=\mathbf W\boldsymbol\beta+\boldsymbol\varepsilon
+$$
+
+这个线性模型中做 spike-and-slab Bayesian 多元回归；用 $\pi$ 控制有多少 SNP 真正非零，用 $S$ 让效应方差随 $h_j$（MAF）变化；用稀疏 LD + 噪声膨胀来吸收 reference/稀疏化带来的 LD 抽样误差；用 RHS updating 把计算做快。
+
+## (8) SBayesS 的 python 实现
+```python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import numpy as np
+import scipy.linalg as la 
+
+# =========================
+# 1) Toy LD (AR1) + toy data
+# =========================
+def make_ld_ar1(m: int, rho: float=0.95) -> np.ndarray:
+    """
+    A simple SPD LD correlation matrix: B_{jk} = rho^{|j-k|}.
+    """
+
+    idx = np.arrange(m)
+    B = rho ** np.abs(idx[:, None] - idx[None, :])
+    return b
+
+def simulate_sbayess_toy(
+    m: int = 200,
+    n: int = 100_000,
+    pi_true: float = 0.05,
+    S_true: float = -0.7,
+    sigma_beta2_true: float = 1e-4,
+    sigma_e2_true: float = 1.0,
+    rho_ld: float = 0.95,
+    seed: int = 42
+):
+    """
+    Simulate summary data under:
+      b = W beta + eps,
+      eps ~ N(0, R * sigma_e^2),
+      beta_j ~ spike-and-slab with Var(beta_j | delta=1) = h_j^S * sigma_beta^2
+    """
+    rng = np.random.default_rng(seed)
+    maf = rng.uniform(0.05, 0.5, size=m)
+    h = 2.0 * maf * (1.0 - maf)                    # h_j = 2p(1-p)
+    D = n * h                                      # D_j ≈ n h_j
+    D_sqrt = np.sqrt(D)
+
+    B = make_ld_ar1(m, rho=rho_ld)                 # LD correlation matrix
+
+    # W = D^{-1/2} B D^{1/2}
+    W = (B * D_sqrt[None, :]) / D_sqrt[:, None]
+
+    # R = D^{-1/2} B D^{-1/2}
+    R = B / (D_sqrt[:, None] * D_sqrt[None, :])
+
+    # true beta (spike-and-slab)
+    delta = (rng.random(m) < pi_true)
+    beta = np.zeros(m)
+    beta[delta] = rng.normal(
+        0.0, np.sqrt((h[delta] ** S_true) * sigma_beta2_true)
+    )
+
+    # eps ~ N(0, R sigma_e^2)
+    L = la.cholesky(R, lower=True)
+    eps = (L @ rng.normal(size=m)) * np.sqrt(sigma_e2_true)
+
+    b = W @ beta + eps
+
+    return {
+        "b": b,
+        "B": B,
+        "maf": maf,
+        "n": n,
+        "beta_true": beta,
+        "delta_true": delta.astype(int),
+        "pi_true": pi_true,
+        "S_true": S_true,
+        "sigma_beta2_true": sigma_beta2_true,
+        "sigma_e2_true": sigma_e2_true,
+    }
+
+# =========================
+# 2) SBayesS demo MCMC
+# =========================
+
+def logpost_S(S: float, beta: np.ndarray, delta: np.ndarray, h: np.ndarray, sigma_beta2: float) -> float:
+    """
+    Log posterior in S up to constants, given current beta, delta, sigma_beta2.
+    Prior: S ~ N(0,1)
+    Likelihood part here is just the beta prior:
+      beta_j | delta=1 ~ N(0, h_j^S sigma_beta2)
+    """
+    lp = -0.5 * (S ** 2)  # N(0,1) prior
+    idx = (delta == 1)
+    if np.any(idx):
+        hj = h[idx]
+        bj = beta[idx]
+        # keep only S-dependent terms
+        # log N(0, hj^S sigma_beta2) contributes:
+        #  -0.5 * [ S log(hj) + bj^2 / (sigma_beta2 * hj^S) ] + const
+        lp += -0.5 * np.sum(S * np.log(hj) + (bj * bj) / (sigma_beta2 * (hj ** S)))
+    return float(lp)
+
+def summarize_trace(x):
+    x = np.asarray(x)
+    return float(x.mean()), float(np.quantile(x, 0.05)), float(np.quantile(x, 0.95))
+
+def sbayess_demo_mcmc(
+    b: np.ndarray,
+    B: np.ndarray,
+    maf: np.ndarray,
+    n: int,
+    n_iter: int = 1500,
+    burn: int = 400,
+    thin: int = 5,
+    seed: int = 1,
+    # priors / tuning
+    a_pi: float = 1.0,
+    b_pi: float = 50.0,       # 让 pi 更偏小（示例里更稳定；你可改回 1,1）
+    a_beta0: float = 2.0,
+    b_beta0: float = 1e-6,    # sigma_beta2 的弱先验尺度（示例）
+    a_e0: float = 2.0,
+    b_e0: float = 1.0,
+    step_S: float = 0.02,     # MH 步长
+):
+    """
+    A compact demo sampler:
+      - update (delta_j, beta_j) with RHS updating
+      - update pi ~ Beta
+      - update sigma_beta2 ~ Inv-Gamma
+      - update sigma_e2 ~ Inv-Gamma using b-likelihood
+      - update S via random-walk MH (demo version)
+    """
+    rng = np.random.default_rng(seed)
+    m = len(b)
+
+    # precompute h, D, sqrt(D), C, r
+    h = 2.0 * maf * (1.0 - maf)
+    D = n * h
+    D_sqrt = np.sqrt(D)
+
+    # C = D^{1/2} B D^{1/2}
+    C = (B * D_sqrt[:, None]) * D_sqrt[None, :]
+
+    # r = D b
+    r = D * b
+
+    # R = D^{-1/2} B D^{-1/2}, needed for sigma_e2 update via b-likelihood
+    R = B / (D_sqrt[:, None] * D_sqrt[None, :])
+    L_R = la.cholesky(R, lower=True)
+
+    # init
+    pi = 0.02
+    S = 0.0
+    sigma_beta2 = 1e-4
+    sigma_e2 = 1.0
+
+    delta = (rng.random(m) < pi).astype(int)
+    beta = np.zeros(m)
+    nz = (delta == 1)
+    if np.any(nz):
+        beta[nz] = rng.normal(0.0, np.sqrt((h[nz] ** S) * sigma_beta2))
+
+    # RHS: r_adj = r - C beta
+    r_adj = r - C @ beta
+
+    trace = {"pi": [], "S": [], "sigma_beta2": [], "sigma_e2": [], "m_nz": []}
+    beta_sum = np.zeros(m)
+    n_keep = 0
+
+    for it in range(n_iter):
+        # ---- update SNPs ----
+        for j in range(m):
+            # partial residual: r_j = r - sum_{k!=j} C_{jk} beta_k
+            # with RHS: r_j = r_adj[j] + C_jj * beta_j, and C_jj = D_j (since B_jj=1)
+            r_j = r_adj[j] + D[j] * beta[j]
+
+            hjS = h[j] ** S
+
+            # posterior inclusion prob using marginal densities (simple & demo-friendly)
+            # M0: beta_j=0 => r_j ~ N(0, V0),  V0 = D_j sigma_e^2
+            # M1: beta_j~N(0, hjS sigma_beta2), integrate => r_j ~ N(0, V1),
+            #     V1 = D_j sigma_e^2 + D_j^2 * hjS * sigma_beta2
+            V0 = D[j] * sigma_e2
+            V1 = V0 + (D[j] ** 2) * hjS * sigma_beta2
+
+            logp1 = np.log(pi) - 0.5 * (np.log(V1) + (r_j * r_j) / V1)
+            logp0 = np.log(1.0 - pi) - 0.5 * (np.log(V0) + (r_j * r_j) / V0)
+
+            mx = max(logp0, logp1)
+            p1 = np.exp(logp1 - mx) / (np.exp(logp1 - mx) + np.exp(logp0 - mx))
+            new_delta = 1 if (rng.random() < p1) else 0
+
+            old_beta = beta[j]
+            if new_delta == 0:
+                new_beta = 0.0
+            else:
+                # Gibbs update for beta_j | rest:
+                # Cj = D_j + sigma_e^2 / (hjS sigma_beta2)
+                # beta_j ~ N( r_j/Cj, sigma_e^2/Cj )
+                Cj = D[j] + sigma_e2 / (hjS * sigma_beta2)
+                var = sigma_e2 / Cj
+                mean = r_j / Cj
+                new_beta = rng.normal(mean, np.sqrt(var))
+
+            # RHS updating:
+            # r_adj = r - C beta, so if beta_j changes by (old - new),
+            # r_adj increases by C[:,j] * (old - new)
+            if new_beta != old_beta:
+                diff = old_beta - new_beta
+                r_adj += C[:, j] * diff
+                beta[j] = new_beta
+
+            delta[j] = new_delta
+
+        # ---- update pi ----
+        m_nz = int(delta.sum())
+        pi = rng.beta(a_pi + m_nz, b_pi + m - m_nz)
+
+        # ---- update sigma_beta2 (Inv-Gamma), using beta_j / sqrt(hjS) ~ N(0, sigma_beta2) ----
+        if m_nz > 0:
+            idx = (delta == 1)
+            scaled_sq = np.sum((beta[idx] ** 2) / (h[idx] ** S))
+        else:
+            scaled_sq = 0.0
+
+        a_post = a_beta0 + 0.5 * m_nz
+        b_post = b_beta0 + 0.5 * scaled_sq
+        sigma_beta2 = 1.0 / rng.gamma(a_post, 1.0 / b_post)
+
+        # ---- update sigma_e2 using b-likelihood: b ~ MVN(W beta, R sigma_e2) ----
+        # W beta = D^{-1/2} B (D^{1/2} beta)
+        t = D_sqrt * beta
+        Wbeta = (B @ t) / D_sqrt
+        u = b - Wbeta
+
+        # Q = u' R^{-1} u via Cholesky (R = L L^T)
+        z = la.solve_triangular(L_R, u, lower=True, check_finite=False)
+        Q = float(z @ z)
+
+        a_e = a_e0 + 0.5 * m
+        b_e = b_e0 + 0.5 * Q
+        sigma_e2 = 1.0 / rng.gamma(a_e, 1.0 / b_e)
+
+        # ---- update S by random-walk MH (demo) ----
+        S_prop = S + step_S * rng.normal()
+        lp_old = logpost_S(S, beta, delta, h, sigma_beta2)
+        lp_new = logpost_S(S_prop, beta, delta, h, sigma_beta2)
+        if np.log(rng.random()) < (lp_new - lp_old):
+            S = S_prop
+
+        # ---- record ----
+        if it >= burn and ((it - burn) % thin == 0):
+            trace["pi"].append(pi)
+            trace["S"].append(S)
+            trace["sigma_beta2"].append(sigma_beta2)
+            trace["sigma_e2"].append(sigma_e2)
+            trace["m_nz"].append(m_nz)
+
+            beta_sum += beta
+            n_keep += 1
+
+    beta_mean = beta_sum / max(n_keep, 1)
+    return beta_mean, trace
+
+# =========================
+# 3) Run demo
+# =========================
+
+if __name__ == "__main__":
+    sim = simulate_sbayess_toy(
+        m=200, n=100_000,
+        pi_true=0.05, S_true=-0.7,
+        sigma_beta2_true=1e-4, sigma_e2_true=1.0,
+        rho_ld=0.95, seed=42
+    )
+
+    beta_post, tr = sbayess_demo_mcmc(
+        sim["b"], sim["B"], sim["maf"], sim["n"],
+        n_iter=1500, burn=400, thin=5, seed=123,
+        a_pi=1.0, b_pi=50.0,     # demo 默认偏稀疏（更稳定）
+        a_beta0=2.0, b_beta0=1e-6,
+        a_e0=2.0, b_e0=1.0,
+        step_S=0.02
+    )
+
+    pi_mean, pi_lo, pi_hi = summarize_trace(tr["pi"])
+    S_mean, S_lo, S_hi = summarize_trace(tr["S"])
+    sb2_mean, sb2_lo, sb2_hi = summarize_trace(tr["sigma_beta2"])
+    se2_mean, se2_lo, se2_hi = summarize_trace(tr["sigma_e2"])
+
+    corr = np.corrcoef(sim["beta_true"], beta_post)[0, 1]
+
+    print("=== Truth vs posterior (demo) ===")
+    print(f"pi_true={sim['pi_true']:.4f}   pi_post_mean={pi_mean:.4f}  (5-95%: {pi_lo:.4f}-{pi_hi:.4f})")
+    print(f"S_true ={sim['S_true']:.4f}   S_post_mean ={S_mean:.4f}  (5-95%: {S_lo:.4f}-{S_hi:.4f})")
+    print(f"sigma_beta2_true={sim['sigma_beta2_true']:.2e}  post_mean={sb2_mean:.2e} (5-95%: {sb2_lo:.2e}-{sb2_hi:.2e})")
+    print(f"sigma_e2_true   ={sim['sigma_e2_true']:.4f}   post_mean={se2_mean:.4f}  (5-95%: {se2_lo:.4f}-{se2_hi:.4f})")
+    print(f"corr(beta_true, beta_post_mean) = {corr:.3f}")
+```

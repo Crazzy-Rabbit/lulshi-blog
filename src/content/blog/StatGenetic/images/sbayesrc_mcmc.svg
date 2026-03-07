@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="860" viewBox="0 0 1280 860">
+<style>
+  .title{font:700 34px sans-serif; fill:#1f2937}
+  .subtitle{font:600 24px sans-serif; fill:#334155}
+  .txt{font:500 22px sans-serif; fill:#111827}
+  .small{font:500 18px sans-serif; fill:#475569}
+  .box1{fill:#eff6ff; stroke:#2563eb; stroke-width:3; rx:26; ry:26}
+  .box2{fill:#f0fdf4; stroke:#16a34a; stroke-width:3; rx:26; ry:26}
+  .box3{fill:#fff7ed; stroke:#ea580c; stroke-width:3; rx:26; ry:26}
+  .box4{fill:#faf5ff; stroke:#9333ea; stroke-width:3; rx:26; ry:26}
+  .arrow{stroke:#475569; stroke-width:4; fill:none; marker-end:url(#arrow)}
+</style>
+<defs>
+  <marker id="arrow" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+  </marker>
+</defs>
+<text x="640" y="56" text-anchor="middle" class="title">SBayesRC 的 MCMC 主循环</text>
+
+<rect x="420" y="100" width="440" height="100" class="box1"/>
+<text x="640" y="142" text-anchor="middle" class="subtitle">0 初始化</text>
+<text x="640" y="178" text-anchor="middle" class="small">beta，delta，alpha，sigma_alpha²，sigma_epsilon²，工作向量</text>
+
+<rect x="120" y="270" width="300" height="150" class="box2"/>
+<text x="270" y="315" text-anchor="middle" class="subtitle">1 扫描所有 SNP</text>
+<text x="270" y="352" text-anchor="middle" class="small">计算 r_j 和各成分后验概率</text>
+<text x="270" y="385" text-anchor="middle" class="small">采样 delta_j 与 beta_j</text>
+
+<rect x="490" y="270" width="300" height="150" class="box3"/>
+<text x="640" y="315" text-anchor="middle" class="subtitle">2 右端项更新</text>
+<text x="640" y="352" text-anchor="middle" class="small">w_corr ← w_corr + Q_j (beta_old − beta_new)</text>
+<text x="640" y="385" text-anchor="middle" class="small">避免每次都全局重算</text>
+
+<rect x="860" y="270" width="300" height="150" class="box4"/>
+<text x="1010" y="315" text-anchor="middle" class="subtitle">3 注释层更新</text>
+<text x="1010" y="352" text-anchor="middle" class="small">由 delta 构造 z</text>
+<text x="1010" y="385" text-anchor="middle" class="small">采样 l，alpha，sigma_alpha²</text>
+
+<rect x="420" y="520" width="440" height="120" class="box1"/>
+<text x="640" y="565" text-anchor="middle" class="subtitle">4 更新方差与遗传力</text>
+<text x="640" y="602" text-anchor="middle" class="small">sigma_g² = betaᵀ R beta = (Q beta)ᵀ (Q beta)</text>
+
+<rect x="420" y="700" width="440" height="100" class="box2"/>
+<text x="640" y="742" text-anchor="middle" class="subtitle">5 进入下一次迭代</text>
+<text x="640" y="778" text-anchor="middle" class="small">丢弃 burn-in，对后验样本求均值</text>
+
+<path d="M640 200 L640 255" class="arrow"/>
+<path d="M420 345 L485 345" class="arrow"/>
+<path d="M790 345 L855 345" class="arrow"/>
+<path d="M1010 420 C1010 470, 780 470, 760 520" class="arrow"/>
+<path d="M520 420 C520 470, 500 470, 520 520" class="arrow"/>
+<path d="M640 640 L640 695" class="arrow"/>
+</svg>

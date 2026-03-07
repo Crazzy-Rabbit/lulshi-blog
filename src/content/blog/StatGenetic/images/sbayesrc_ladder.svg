@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760">
+<style>
+  .title{font:700 34px sans-serif; fill:#1f2937}
+  .subtitle{font:600 24px sans-serif; fill:#334155}
+  .txt{font:500 22px sans-serif; fill:#111827}
+  .small{font:500 18px sans-serif; fill:#475569}
+  .step1{fill:#f8fafc; stroke:#64748b; stroke-width:3; rx:24; ry:24}
+  .step2{fill:#eff6ff; stroke:#2563eb; stroke-width:3; rx:24; ry:24}
+  .step3{fill:#eef2ff; stroke:#4f46e5; stroke-width:3; rx:24; ry:24}
+  .step4{fill:#faf5ff; stroke:#9333ea; stroke-width:3; rx:24; ry:24}
+  .step5{fill:#fff7ed; stroke:#ea580c; stroke-width:3; rx:24; ry:24}
+  .arrow{stroke:#475569; stroke-width:4; fill:none; marker-end:url(#arrow)}
+</style>
+<defs>
+  <marker id="arrow" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+  </marker>
+</defs>
+<text x="640" y="56" text-anchor="middle" class="title">把五个混合权重改写成四个逐级门槛概率</text>
+
+<rect x="110" y="180" width="180" height="110" class="step1"/>
+<text x="200" y="220" text-anchor="middle" class="subtitle">成分 1</text>
+<text x="200" y="255" text-anchor="middle" class="txt">零效应</text>
+
+<rect x="340" y="150" width="180" height="110" class="step2"/>
+<text x="430" y="190" text-anchor="middle" class="subtitle">成分 2</text>
+<text x="430" y="225" text-anchor="middle" class="txt">小效应</text>
+
+<rect x="570" y="120" width="180" height="110" class="step3"/>
+<text x="660" y="160" text-anchor="middle" class="subtitle">成分 3</text>
+<text x="660" y="195" text-anchor="middle" class="txt">中效应</text>
+
+<rect x="800" y="90" width="180" height="110" class="step4"/>
+<text x="890" y="130" text-anchor="middle" class="subtitle">成分 4</text>
+<text x="890" y="165" text-anchor="middle" class="txt">较大效应</text>
+
+<rect x="1030" y="60" width="180" height="110" class="step5"/>
+<text x="1120" y="100" text-anchor="middle" class="subtitle">成分 5</text>
+<text x="1120" y="135" text-anchor="middle" class="txt">最大效应</text>
+
+<path d="M290 235 C315 235, 325 220, 340 205" class="arrow"/>
+<path d="M520 205 C545 205, 555 190, 570 175" class="arrow"/>
+<path d="M750 175 C775 175, 785 160, 800 145" class="arrow"/>
+<path d="M980 145 C1005 145, 1015 130, 1030 115" class="arrow"/>
+
+<text x="315" y="305" text-anchor="middle" class="small">p_j2 先决定是否非零</text>
+<text x="545" y="275" text-anchor="middle" class="small">p_j3 再决定是否继续往上</text>
+<text x="775" y="245" text-anchor="middle" class="small">p_j4 决定是否进入更大效应</text>
+<text x="1005" y="215" text-anchor="middle" class="small">p_j5 决定是否进入最大效应</text>
+
+<rect x="120" y="430" width="1040" height="210" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5" rx="28" ry="28"/>
+<text x="640" y="475" text-anchor="middle" class="subtitle">对应关系</text>
+<text x="640" y="525" text-anchor="middle" class="txt">π_j1 = 1 − p_j2</text>
+<text x="640" y="560" text-anchor="middle" class="txt">π_j2 = (1 − p_j3) p_j2</text>
+<text x="640" y="595" text-anchor="middle" class="txt">π_j3 = (1 − p_j4) p_j3 p_j2</text>
+<text x="640" y="630" text-anchor="middle" class="txt">π_j4 = (1 − p_j5) p_j4 p_j3 p_j2， π_j5 = p_j5 p_j4 p_j3 p_j2</text>
+</svg>

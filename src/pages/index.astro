@@ -1,0 +1,146 @@
+---
+import BaseLayout from "@/layouts/Base";
+import SocialMediaLinks from "@/components/SocialMediaLinks";
+
+---
+
+<BaseLayout title="Home">
+    <section>
+    <h1 id="typing-area" class="typing"></h1>
+    </section>
+    <hr />
+    <section>
+    <div>
+			<span>You can find me in:</span>
+			<SocialMediaLinks />
+	</div>
+	</section>
+	<!-- <section>
+		<h1 class="title">Hello World</h1>
+		<p class="mb-4 sm:mb-8">
+			¡Hola a todos! Este es un tema para Astro. Pueden usarlo como blog
+			personal o portafolio. Si quieren saber más sobre cómo
+			personalizarlo y hacerlo suyo, hagan clic en el enlace del ícono de
+			Github que aparece a continuación y los llevará al repositorio.
+		</p>
+		<div>
+			<span>Puedes encontrarme en:</span>
+			<SocialMediaLinks />
+		</div>
+	</section> -->
+	<!-- <section class="mt-8 sm:mt-16">
+		<h2 class="title">Posts</h2>
+		<ul class="space-y-4 sm:space-y-2">
+			{
+				filteredPostsByLanguage.map((p) => (
+					<PostPreview post={p as CollectionEntry<"blog">} />
+				))
+			}
+		</ul>
+	</section> -->
+	<!-- <hr />
+	<section class="">
+		<p>Esto fue traducido usando Google Translate</p>
+	</section> -->
+
+
+
+</BaseLayout>
+
+<script>
+  import TypeIt from "typeit";
+
+  function createProgressBar(current: number, total: number, width: number = 30): string {
+     const filled = Math.floor(width * (current / total));
+     const empty = width - filled;
+     const bar = '█'.repeat(filled) + '░'.repeat(empty);
+     const percentage = Math.floor((current / total) * 100);
+     return `[${bar}] ${percentage}%`;
+   }
+
+  // 等待 DOM 和外部脚本加载完成
+  window.addEventListener("load", function () {
+    new TypeIt("#typing-area", {  // 修改为正确的选择器
+      speed: 80,               // 可选：调整打字速度
+      waitUntilVisible: true,  // 可选：等到元素可见时才开始
+      cursor: true,
+      breakLines: false,
+    }).
+    type('❯ <span class="typingcmd">lulshi</span> <span class="typingvar">--help</span>').
+    pause(500).
+    break({instant: true}).
+    break({instant: true}).
+    type("Name: Lulu Shi", {instant: true}).
+    break({instant: true}).
+    type("Version: 2026", {instant: true}).
+    break({instant: true}).
+    type('Usage: lulshi [OPTIONS] <', {instant: true}).
+    type('COMMANDS>', {instant: true}).
+    break({instant: true}).
+    type("Commands:", {instant: true}).
+    break({instant: true}).
+    type('<span>&nbsp;&nbsp;</span>🧬bioinfo:', {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Play statistical problems with code. Years of experience in bioinformatics analysis (Genomics and omics)", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>🛠️coder:", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Get my hands dirty! Always be a rookie and stay hungry. ", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>🙌life:", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Work hard, play harder! Enjoy dopamine and endorphins from nature🏞, food🥑, music🎧 and sports🏋.", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>👨‍🎓student:", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Master of Zootechny in Jilin University.", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>PhD student of West China Hospital of Sichuan University.", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Interested in: [genomics, genetics, omics, demographic].", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>🎮gamer:", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Hundreds of hours of LOL/LOLm.", {instant: true}).
+    break({instant: true}).
+    type("Options:", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>-l, --Linux\t💻Unix/Commmand Linet[default: true]", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>-p, --Python\t🐍I’m familiar with it, though haven’t used in larger projects.\t[default: true]", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>-v, --Visualize\t📊Prefer vega-lite/R for data presentation.\t[default: true]", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>-j, --Julia\t🔴🟢🟣High-performance tool for scientific computing, still a beginner.\t[default: false]", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>-c, --C++\t⚙️Currently learning...\t[default: false]", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>-f, --frontend\t🌐still a beginner with Vue, but very interested in it\t[default: false]", {instant: true}).
+    break({instant: true}).
+    break({instant: true}).
+    type('❯ <span class="typingcmd">echo</span> <span class="typingvar">$MOTTO</span>').
+    break({instant: true}).
+    pause(500).
+    type("A ship in a harbour is safe but that is not what ships are built for.", {instant: true}).
+    break({instant: true}).
+    pause(500).
+    break({instant: true}).
+    // type('❯ <span class="typingcmd">python3</span> <span class="typingvar">train.py --model Deep --epochs 100</span>').
+    // break({instant: true}).
+    type('Training progress: ', {instant: true}).
+    // break({instant: true}).
+    type(createProgressBar(30, 100), {instant: false}).
+    pause(300).
+    delete(36, {instant: true}).
+    type(createProgressBar(66, 100), {instant: false}).
+    pause(300).
+    delete(36, {instant: true}).
+    type(createProgressBar(99, 100), {instant: false}).
+    break({instant: true}).
+    type("Always learning...").
+    // break({instant: true}).
+    // break({instant: true}).
+    // type('❯ ').
+    go();
+  });
+</script>
