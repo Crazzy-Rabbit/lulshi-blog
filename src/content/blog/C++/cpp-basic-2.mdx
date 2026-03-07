@@ -5,3 +5,655 @@ tags: [cpp, code]
 pubDate: Mar 07 2026
 series: C++-Basic
 ---
+
+:::tip
+学习 C++ 最好的方式，不是看懂，而是边看边敲。每出现一个例子，都建议你自己亲手运行一次，再尝试改掉其中的一两个数字，观察结果变化。
+:::
+
+## 什么是变量
+
+在 C++ 里，定义一个变量通常长这样：
+
+```cpp
+int age = 18;
+```
+当然，也可以先声明，后赋值：
+
+```cpp
+int score;
+score = 95;
+```
+
+:::caution
+变量名最好见名知意。不要总写 `a`、`b`、`c`，除非只是临时做非常简单的演示。
+
+比如 `totalPrice` 就比 `tp` 更容易读懂。
+:::
+
+## 变量的基本类型
+
+C++ 里的数据不是都长一个样子。
+
+有的数据是整数，有的是小数，有的是字符，有的是真假值。为了让编译器知道你要存什么，C++ 提供了基本类型。
+
+最常见的几种如下。
+
+1) **整数类型 int**
+
+`int` 用来保存整数，比如年龄、人数、数量、年份。
+
+```cpp
+int year = 2026;
+int students = 42;
+int temperature = -5;
+```
+
+这里面没有小数点，都是整数。
+
+2) **浮点类型 double**
+
+`double` 用来保存带小数的数据，比如身高、体重、圆周率近似值。
+
+```cpp
+double height = 175.5;
+double price = 19.99;
+double pi = 3.1415926;
+```
+
+为什么很多时候推荐用 `double`，而不是 `float`
+
+因为 `double` 的精度通常更高，初学阶段更省心。
+
+3) **字符类型 char**
+
+`char` 用来保存单个字符，注意是单个，不是一串文字。
+
+```cpp
+char grade = 'A';
+char ch = 'x';
+```
+
+字符要用单引号包起来。
+
+4) **布尔类型 bool**
+
+`bool` 用来保存真假，只有两个值：`true` 和 `false`。
+
+```cpp
+bool isPassed = true;
+bool isRainy = false;
+```
+
+它常用于条件判断，比如“是否及格”“是否下雨”“是否登录成功”。
+
+5) **字符串 string**
+
+严格来说，`string` 不是 C++ 的内建基本类型。
+它用来保存一整串文字。
+
+```cpp
+#include <string>
+
+string name = "Alice";
+string city = "Tokyo";
+```
+
+字符串要用双引号包起来。
+
+单引号是给 `char` 用的，双引号是给 `string` 用的。
+
+6) **不同类型的对比**
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    int age = 20;
+    double height = 172.8;
+    char grade = 'A';
+    bool isStudent = true;
+    string name = "Liu";
+
+    cout << "姓名: " << name << endl;
+    cout << "年龄: " << age << endl;
+    cout << "身高: " << height << endl;
+    cout << "等级: " << grade << endl;
+    cout << "是否是学生: " << isStudent << endl;
+
+    return 0;
+}
+```
+:::caution[bool]
+注意，`bool` 输出时通常会显示成 `1` 或 `0`。
+
+其中 `1` 表示 `true`，`0` 表示 `false`。
+:::
+
+如果你想让它显示成单词形式，可以这样写：
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    bool isStudent = true;
+    cout << boolalpha << isStudent << endl;
+    return 0;
+}
+```
+
+## 变量的初始化
+
+定义变量时，最好立刻给它一个初始值。
+
+比如：
+
+```cpp
+int count = 0;
+double salary = 0.0;
+char choice = 'N';
+bool found = false;
+```
+
+为什么要这样做
+
+因为未初始化的变量可能带着一堆莫名其妙的旧值，这会让程序出现很难排查的问题。
+
+:::caution
+初学阶段养成一个强迫症式习惯：变量一出现，就给它初值。
+
+这会帮你避开非常多低级错误。
+:::
+
+## 什么是表达式
+
+表达式可以理解成“会算出一个结果的东西”。
+
+比如：
+
+```cpp
+3 + 5
+age + 1
+price * count
+x > y
+```
+
+`3 + 5` 的结果是 `8`。
+
+`x > y` 的结果是 `true` 或 `false`。
+
+表达式不一定非得写数字，也可以由变量和运算符组成。
+
+## 常见运算符
+
+1) **算术运算符**
+
+```cpp
++   // 加
+-   // 减
+*   // 乘
+/   // 除
+%   // 取余
+```
+
+例子：
+
+```cpp
+int a = 10;
+int b = 3;
+
+cout << a + b << endl;  // 13
+cout << a - b << endl;  // 7
+cout << a * b << endl;  // 30
+cout << a / b << endl;  // 3
+cout << a % b << endl;  // 1
+```
+
+这里要特别注意：
+
+如果两个操作数都是整数，`a / b` 得到的也是整数部分。
+
+也就是说，`10 / 3` 在这里不是 `3.3333`，而是 `3`。
+
+如果想得到小数结果，可以这样写：
+
+```cpp
+double result = 10.0 / 3;
+cout << result << endl;
+```
+
+2) **赋值运算符**
+
+最常见的赋值运算符是 `=`。
+
+```cpp
+int x = 5;
+x = 8;
+```
+
+此外还有一些简写形式：
+
+```cpp
+x += 2;  // 等价于 x = x + 2;
+x -= 1;  // 等价于 x = x - 1;
+x *= 3;  // 等价于 x = x * 3;
+x /= 2;  // 等价于 x = x / 2;
+```
+
+3) **比较运算符**
+
+比较运算符用来判断两个值之间的关系，结果是 `true` 或 `false`。
+
+```cpp
+==   // 是否相等
+!=   // 是否不等
+>    // 是否大于
+<    // 是否小于
+>=   // 是否大于等于
+<=   // 是否小于等于
+```
+
+例子：
+
+```cpp
+int score = 85;
+cout << (score >= 60) << endl;
+```
+
+输出结果是 `1`，表示条件成立。
+
+4) **逻辑运算符**
+
+逻辑运算符常用于组合多个条件。
+
+```cpp
+&&   // 与
+||   // 或
+!    // 非
+```
+
+例子：
+
+```cpp
+int age = 20;
+bool hasTicket = true;
+
+cout << (age >= 18 && hasTicket) << endl;
+```
+
+这表示：年龄至少 18 岁，并且有票，两个条件都满足才行。
+
+
+## 自增和自减
+
+C++ 里有两个很常见的小操作：
+
+```cpp
+++x;  // 自增
+--x;  // 自减
+```
+
+或者：
+
+```cpp
+x++;
+x--;
+```
+
+它们都和加 1、减 1 有关。
+
+简单记住：
+
+`x++` 和 `++x` 最终都会让 `x` 增加 1。
+
+在单独成句时，它们效果看起来一样。
+
+```cpp
+int x = 5;
+x++;
+cout << x << endl;  // 6
+```
+
+不过如果它们放进更复杂的表达式里，前置和后置会有区别，现阶段不必了解太深。
+
+## 什么是函数
+
+函数的意义有三个：
+- 减少重复代码。
+- 让程序结构更清晰。
+- 让每一部分代码只负责一件事，更容易维护。
+
+1) **函数最基本的样子**
+
+```cpp
+返回类型 函数名(参数列表) {
+    函数体
+}
+```
+
+比如：
+
+```cpp
+int add(int a, int b) {
+    return a + b;
+}
+```
+这段代码表示定义了一个叫 `add` 的函数。它接收两个整数参数 `a` 和 `b`。它返回一个整数结果，也就是两者之和。
+
+2) **函数调用**
+
+定义好函数后，就可以在 `main` 中使用它。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int add(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int result = add(3, 5);
+    cout << "结果是: " << result << endl;
+    return 0;
+}
+```
+
+程序会输出：
+
+```cpp
+结果是: 8
+```
+
+3) **理解参数和返回值**
+
+参数相当于把原材料交给函数。
+
+返回值相当于函数加工后交回来的成品。
+
+```cpp
+double square(double x) {
+    return x * x;
+}
+```
+
+它接收一个小数 `x`，返回它的平方。
+
+调用方式：
+
+```cpp
+double area = square(3.5);
+cout << area << endl;
+```
+
+4) **没有返回值的函数**
+
+有些函数只负责做事，不负责交回结果。这时返回类型为 `void`。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+void greet() {
+    cout << "欢迎进入 C++ 世界" << endl;
+}
+
+int main() {
+    greet();
+    return 0;
+}
+```
+
+这里 `greet` 函数只是输出一句话，没有返回具体数值。
+
+5) **为什么要学会拆函数**
+
+初学者很容易把所有代码都塞进 `main` 里。这样短程序还行，一旦程序长起来，就会乱成一锅粥。
+
+把不同任务拆成函数，代码会清爽很多，也便于维护。
+
+来看一个例子：
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int add(int a, int b) {
+    return a + b;
+}
+
+int subtract(int a, int b) {
+    return a - b;
+}
+
+void printLine() {
+    cout << "----------------" << endl;
+}
+
+int main() {
+    int x = 10;
+    int y = 4;
+
+    printLine();
+    cout << "和: " << add(x, y) << endl;
+    cout << "差: " << subtract(x, y) << endl;
+    printLine();
+
+    return 0;
+}
+```
+
+你会发现，`main` 看起来已经很像“流程总控室”了。
+
+而真正干活的细节，被分配给了不同函数。
+
+:::tip[func]
+写函数时，尽量让一个函数只做一件事。
+
+一个函数如果既计算、又输入、又输出、又做判断，通常就有点太忙了。
+:::
+
+## 案例练习
+
+### 例子一：交换零花钱预算
+
+这个例子巩固变量、表达式和函数。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int totalMoney(int breakfast, int lunch, int dinner) {
+    return breakfast + lunch + dinner;
+}
+
+int main() {
+    int breakfast = 6;
+    int lunch = 18;
+    int dinner = 15;
+
+    int total = totalMoney(breakfast, lunch, dinner);
+
+    cout << "今天总预算是: " << total << " 元" << endl;
+    return 0;
+}
+```
+
+### 例子二：判断是否及格
+
+这个例子巩固 `bool`、比较表达式和函数。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+bool isPass(int score) {
+    return score >= 60;
+}
+
+int main() {
+    int score = 78;
+    cout << boolalpha << isPass(score) << endl;
+    return 0;
+}
+```
+
+### 例子三：计算长方形面积
+
+这个例子巩固 `double` 和返回值。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+double rectangleArea(double length, double width) {
+    return length * width;
+}
+
+int main() {
+    double length = 5.2;
+    double width = 3.8;
+
+    double area = rectangleArea(length, width);
+    cout << "面积是: " << area << endl;
+
+    return 0;
+}
+```
+
+### 例子四：输出个人信息
+
+这个例子把多种类型放在一起。
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+void printProfile(string name, int age, double height) {
+    cout << "姓名: " << name << endl;
+    cout << "年龄: " << age << endl;
+    cout << "身高: " << height << " cm" << endl;
+}
+
+int main() {
+    printProfile("Xiao Liu", 20, 176.5);
+    return 0;
+}
+```
+
+## 初学者最容易犯的错误
+
+### 忘记分号
+
+```cpp
+int age = 18
+cout << age << endl;
+```
+C++程序每行结束的标识是 `;`。
+
+### 混淆单引号和双引号
+
+```cpp
+char ch = 'A';
+string name = "Alice";
+```
+单个字符用单引号，一串文字用双引号。
+
+### 整数除法结果和想象不一样
+
+```cpp
+cout << 5 / 2 << endl;
+```
+
+结果是 `2`，不是 `2.5`，因为**运算类型由参与运算的操作数决定**。
+
+## 继续练习
+
+### 练习 1
+
+定义两个整数变量 `a` 和 `b`，值分别为 12 和 7，输出它们的和、差、积。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a = 12;
+    int b = 7;
+
+    cout << "和: " << a + b << endl;
+    cout << "差: " << a - b << endl;
+    cout << "积: " << a * b << endl;
+
+    return 0;
+}
+```
+
+### 练习 2
+
+定义一个函数，接收一个整数，返回它是否为偶数。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+bool isEven(int n) {
+    return n % 2 == 0;
+}
+
+int main() {
+    cout << boolalpha << isEven(8) << endl;
+    cout << boolalpha << isEven(5) << endl;
+    return 0;
+}
+```
+
+### 练习 3
+
+定义一个函数，接收半径，返回圆的面积。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+double circleArea(double r) {
+    return 3.1415926 * r * r;
+}
+
+int main() {
+    cout << circleArea(2.0) << endl;
+    return 0;
+}
+```
+
+### 练习 4
+
+定义一个字符串变量保存名字，一个整数变量保存年龄，然后输出一句完整的话。
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string name = "Liu";
+    int age = 20;
+
+    cout << "大家好，我叫 " << name << "，今年 " << age << " 岁。" << endl;
+    return 0;
+}
+```
+
+## 本章小结
+
+- 变量负责记住数据。
+- 基本类型决定数据长什么样。
+- 表达式负责算出结果。
+- 语句负责推动程序执行。
+- 函数负责把重复逻辑打包起来，提升代码的组织性。
+
+## 参考资料
+
