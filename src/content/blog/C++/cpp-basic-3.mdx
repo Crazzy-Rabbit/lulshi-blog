@@ -621,13 +621,81 @@ int main() {
 ## 巩固练习
 
 第一题，输入一个整数，判断它是正数、负数还是零。
+```cpp
+#include <iostream>
+using namespace std;
 
+int main(){
+    int num;
+    cout << "请输入一个整数" << endl;
+    cin >> num;
+
+    if (num > 0){
+        cout << num << "是正数" << endl;
+    } else if (num == 0) {
+        cout << num << "是零" << endl;
+    } else {
+        cout << num << "是负数" << endl;
+    }
+
+    return 0;
+}
+```
 第二题，输入一个年份，判断它是否为闰年。
+```cpp
+#include <iostream>
+using namespace std;
 
+int main(){
+    int num;
+    cout << "请输入一个年份" << endl;
+    cin >> num;
+
+    if ((num % 4 == 0 && num % 100 != 0) || num % 400 == 0){
+        cout << num << "是闰年" << endl;
+    } else {
+        cout << num << "不是闰年" << endl;
+    }
+
+    return 0;
+}
+
+```
 第三题，用 `for` 循环输出 1 到 50 中所有偶数。
+```cpp
+#include <iostream>
+using namespace std;
+
+int main(){
+    int i;
+    for (i=1; i<=50; i++){
+        if (i % 2 == 0){
+            cout << i << endl;
+        }
+    }
+
+    return 0;
+}
+```
 
 第四题，计算 1 到 n 的和，其中 n 由用户输入。
+```cpp
+#include <iostream>
+using namespace std;
 
+int main(){
+    int n;
+    cout << "请输入要计算的数字" << endl;
+    cin >> n;
+
+    int sum=0;
+    for (int i = 1; i <= n; i++){
+        sum += i;
+    }
+
+    return 0;
+}
+```
 第五题，输入一个整数 n，输出 n 行星号三角形。
 
 例如当 `n = 4` 时，输出。
@@ -639,8 +707,48 @@ int main() {
 ****
 ```
 
+```cpp
+#include <iostream>
+using namespace std;
+
+int main(){
+    int n;
+    cout << "请输入一个整数" << endl;
+    cin >> n;
+    
+    for (int i = 1; i <= n; i++){
+        for(int j = 1; j <= i; j++){
+            cout << "*";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+```
 第六题，反复输入密码，直到输入正确为止。
 
+```cpp
+#include <string>
+#include <iostream>
+using namespace std;
+
+int main(){
+    string inkey;
+    cout << "请输入密码" << endl;
+    cin >> inkey;
+    
+    string keys = "01k2y68j";
+    while(inkey != keys){
+        cout << "密码不正确，请重新输入" << endl;
+        cin >> inkey;
+    }
+    
+    cout << "密码正确" << endl;
+
+    return 0;
+}
+```
 ## 本章小结
 
 - `if`、`if else`、`else if` 让程序根据条件走不同路径。
