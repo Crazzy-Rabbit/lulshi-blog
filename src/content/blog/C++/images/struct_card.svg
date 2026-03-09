@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="460" viewBox="0 0 900 460">
+<defs>
+  <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#fdf6ff"/>
+    <stop offset="100%" stop-color="#eef7ff"/>
+  </linearGradient>
+  <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#ffffff"/>
+    <stop offset="100%" stop-color="#f8fbff"/>
+  </linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+    <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#9db4d0" flood-opacity="0.35"/>
+  </filter>
+</defs>
+<rect width="900" height="460" rx="28" fill="url(#bg1)"/>
+<text x="450" y="52" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="28" font-weight="700" fill="#30445e">struct 像一张角色设定卡</text>
+<text x="450" y="82" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="16" fill="#5d6d7f">把多个相关数据装进同一个“小盒子”里</text>
+
+<g filter="url(#shadow)">
+  <rect x="90" y="120" width="320" height="240" rx="24" fill="url(#card)" stroke="#b8cae3" stroke-width="2"/>
+  <rect x="90" y="120" width="320" height="54" rx="24" fill="#dff1ff"/>
+  <text x="250" y="155" text-anchor="middle" font-family="Consolas, monospace" font-size="28" font-weight="700" fill="#2c4c72">struct Student</text>
+  <line x1="120" y1="205" x2="380" y2="205" stroke="#d8e4f2" stroke-width="2"/>
+  <line x1="120" y1="255" x2="380" y2="255" stroke="#d8e4f2" stroke-width="2"/>
+  <line x1="120" y1="305" x2="380" y2="305" stroke="#d8e4f2" stroke-width="2"/>
+  <text x="135" y="195" font-family="Consolas, monospace" font-size="22" fill="#334">string name;</text>
+  <text x="135" y="245" font-family="Consolas, monospace" font-size="22" fill="#334">int age;</text>
+  <text x="135" y="295" font-family="Consolas, monospace" font-size="22" fill="#334">double score;</text>
+  <text x="135" y="345" font-family="Consolas, monospace" font-size="22" fill="#334">bool passed;</text>
+</g>
+
+<g>
+  <path d="M445 245 C505 245, 520 245, 565 245" fill="none" stroke="#90a9c7" stroke-width="5" stroke-linecap="round"/>
+  <polygon points="565,245 545,235 545,255" fill="#90a9c7"/>
+</g>
+
+<g filter="url(#shadow)">
+  <rect x="595" y="108" width="220" height="270" rx="24" fill="#fffdfd" stroke="#f0b9c1" stroke-width="2"/>
+  <circle cx="705" cy="170" r="42" fill="#ffe4e8" stroke="#d88f9c" stroke-width="2"/>
+  <circle cx="690" cy="164" r="5" fill="#4e4e4e"/>
+  <circle cx="720" cy="164" r="5" fill="#4e4e4e"/>
+  <path d="M690 185 Q705 196 720 185" fill="none" stroke="#c86b7a" stroke-width="3" stroke-linecap="round"/>
+  <rect x="648" y="220" width="114" height="118" rx="18" fill="#fbeff1" stroke="#efc5cb"/>
+  <text x="705" y="246" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="18" font-weight="700" fill="#7a4851">xiaoming</text>
+  <text x="705" y="278" text-anchor="middle" font-family="Consolas, monospace" font-size="18" fill="#444">age = 18</text>
+  <text x="705" y="306" text-anchor="middle" font-family="Consolas, monospace" font-size="18" fill="#444">score = 96.5</text>
+  <text x="705" y="334" text-anchor="middle" font-family="Consolas, monospace" font-size="18" fill="#444">passed = true</text>
+  <text x="705" y="372" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="16" fill="#7b6a6c">一个 Student 变量</text>
+</g>
+
+<text x="450" y="426" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="16" fill="#6b7b90">左边是“模板”，右边是按模板创建出来的具体对象</text>
+</svg>

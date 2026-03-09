@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+<defs>
+  <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#fffdf3"/>
+    <stop offset="100%" stop-color="#f1fbff"/>
+  </linearGradient>
+  <filter id="shadow2" x="-30%" y="-30%" width="160%" height="160%">
+    <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#95aac4" flood-opacity="0.35"/>
+  </filter>
+</defs>
+<rect width="900" height="420" rx="28" fill="url(#bg2)"/>
+<text x="450" y="50" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="28" font-weight="700" fill="#324a58">点号 . 就像按门牌号找房间</text>
+<text x="450" y="80" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="16" fill="#667785">student.name 表示去 Student 这个盒子里拿 name 那一格</text>
+
+<g filter="url(#shadow2)">
+  <rect x="110" y="115" width="280" height="210" rx="24" fill="#ffffff" stroke="#c7d7e8" stroke-width="2"/>
+  <rect x="110" y="115" width="280" height="48" rx="24" fill="#dff1ff"/>
+  <text x="250" y="146" text-anchor="middle" font-family="Consolas, monospace" font-size="26" fill="#2c4c72" font-weight="700">stu</text>
+
+  <rect x="145" y="186" width="210" height="38" rx="12" fill="#f8fbff" stroke="#dce8f5"/>
+  <rect x="145" y="235" width="210" height="38" rx="12" fill="#f8fbff" stroke="#dce8f5"/>
+  <rect x="145" y="284" width="210" height="38" rx="12" fill="#f8fbff" stroke="#dce8f5"/>
+
+  <text x="168" y="211" font-family="Consolas, monospace" font-size="18" fill="#334">name</text>
+  <text x="168" y="260" font-family="Consolas, monospace" font-size="18" fill="#334">age</text>
+  <text x="168" y="309" font-family="Consolas, monospace" font-size="18" fill="#334">score</text>
+
+  <text x="320" y="211" text-anchor="end" font-family="Consolas, monospace" font-size="18" fill="#556">"Ava"</text>
+  <text x="320" y="260" text-anchor="end" font-family="Consolas, monospace" font-size="18" fill="#556">19</text>
+  <text x="320" y="309" text-anchor="end" font-family="Consolas, monospace" font-size="18" fill="#556">98.0</text>
+</g>
+
+<g>
+  <path d="M455 210 C520 210, 530 210, 585 210" fill="none" stroke="#8ea8c4" stroke-width="5" stroke-linecap="round"/>
+  <polygon points="585,210 565,200 565,220" fill="#8ea8c4"/>
+</g>
+
+<g filter="url(#shadow2)">
+  <rect x="600" y="125" width="210" height="170" rx="24" fill="#fff" stroke="#b7d0b6" stroke-width="2"/>
+  <text x="705" y="168" text-anchor="middle" font-family="Consolas, monospace" font-size="24" fill="#305b37">stu.name</text>
+  <text x="705" y="212" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="20" fill="#537c59">读出来的是</text>
+  <rect x="650" y="230" width="110" height="42" rx="14" fill="#e8f9e8" stroke="#cfe8cf"/>
+  <text x="705" y="257" text-anchor="middle" font-family="Consolas, monospace" font-size="22" fill="#2f5a36">"Ava"</text>
+</g>
+
+<g>
+  <circle cx="544" cy="315" r="44" fill="#ffe9c7" stroke="#d9a95d" stroke-width="2"/>
+  <circle cx="529" cy="308" r="5" fill="#4e4e4e"/>
+  <circle cx="559" cy="308" r="5" fill="#4e4e4e"/>
+  <path d="M529 331 Q544 342 559 331" fill="none" stroke="#b4722f" stroke-width="3" stroke-linecap="round"/>
+  <text x="544" y="385" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="16" fill="#6b6f74">小口诀：变量名.成员名</text>
+</g>
+</svg>

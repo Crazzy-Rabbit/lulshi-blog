@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="360" viewBox="0 0 920 360">
+  <defs>
+    <style>
+      .title{font:700 24px 'Segoe UI',Arial,sans-serif;fill:#2b2d42}
+      .label{font:700 20px 'Segoe UI',Arial,sans-serif;fill:#1f2937}
+      .small{font:500 15px 'Segoe UI',Arial,sans-serif;fill:#4b5563}
+      .mono{font:600 16px Consolas,monospace;fill:#111827}
+      .stack{fill:#eff6ff;stroke:#3b82f6;stroke-width:2;rx:16}
+      .heap{fill:#ecfdf5;stroke:#10b981;stroke-width:2;rx:16}
+      .cell1{fill:#dbeafe;stroke:#60a5fa;stroke-width:1.5;rx:10}
+      .cell2{fill:#d1fae5;stroke:#34d399;stroke-width:1.5;rx:10}
+      .line{stroke:#6b7280;stroke-width:3;marker-end:url(#m)}
+    </style>
+    <marker id="m" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <text x="24" y="36" class="title">内存初步：把程序临时工作区和动态申请区先区分开</text>
+
+  <rect x="40" y="70" width="360" height="250" class="stack"/>
+  <text x="65" y="106" class="label">栈 stack</text>
+  <text x="65" y="132" class="small">函数里的普通局部变量，通常放在这里</text>
+  <rect x="80" y="160" width="280" height="46" class="cell1"/>
+  <text x="98" y="188" class="mono">int x = 10;</text>
+  <rect x="80" y="218" width="280" height="46" class="cell1"/>
+  <text x="98" y="246" class="mono">int* p = &amp;x;</text>
+
+  <rect x="520" y="70" width="360" height="250" class="heap"/>
+  <text x="545" y="106" class="label">堆 heap</text>
+  <text x="545" y="132" class="small">用 new 申请出来的对象，生命周期更灵活</text>
+  <rect x="560" y="175" width="280" height="62" class="cell2"/>
+  <text x="578" y="205" class="mono">new int(99)</text>
+  <text x="578" y="226" class="small">需要 delete 释放</text>
+
+  <path d="M360 241 C430 255, 470 255, 560 206" class="line"/>
+  <text x="403" y="225" class="small">指针可以指向堆上的对象</text>
+</svg>

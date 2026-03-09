@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="460" viewBox="0 0 940 460">
+<defs>
+  <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f9fbff"/>
+    <stop offset="100%" stop-color="#fff7fb"/>
+  </linearGradient>
+  <filter id="shadow3" x="-30%" y="-30%" width="160%" height="160%">
+    <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#9aa9c0" flood-opacity="0.35"/>
+  </filter>
+</defs>
+<rect width="940" height="460" rx="28" fill="url(#bg3)"/>
+<text x="470" y="52" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="28" font-weight="700" fill="#374b61">自定义类型家族</text>
+<text x="470" y="82" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="16" fill="#6a7788">struct 管数据，using 改名字，enum 表状态</text>
+
+<g filter="url(#shadow3)">
+  <rect x="70" y="120" width="235" height="240" rx="24" fill="#fff" stroke="#c9d8ea" stroke-width="2"/>
+  <rect x="70" y="120" width="235" height="48" rx="24" fill="#dff1ff"/>
+  <text x="187" y="151" text-anchor="middle" font-family="Consolas, monospace" font-size="24" fill="#2d4d73" font-weight="700">struct</text>
+  <text x="187" y="208" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="18" fill="#3e4c5c">把多个成员打包</text>
+  <text x="187" y="242" text-anchor="middle" font-family="Consolas, monospace" font-size="20" fill="#556">Student / Book / Point</text>
+  <circle cx="187" cy="302" r="36" fill="#ffe6e6" stroke="#d69a9a" stroke-width="2"/>
+  <circle cx="174" cy="296" r="4.5" fill="#444"/>
+  <circle cx="200" cy="296" r="4.5" fill="#444"/>
+  <path d="M174 316 Q187 327 200 316" fill="none" stroke="#c86b7a" stroke-width="3"/>
+</g>
+
+<g filter="url(#shadow3)">
+  <rect x="352" y="120" width="235" height="240" rx="24" fill="#fff" stroke="#d8d3ef" stroke-width="2"/>
+  <rect x="352" y="120" width="235" height="48" rx="24" fill="#eee7ff"/>
+  <text x="470" y="151" text-anchor="middle" font-family="Consolas, monospace" font-size="24" fill="#604b98" font-weight="700">using</text>
+  <text x="470" y="208" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="18" fill="#4b4d65">给复杂类型取别名</text>
+  <text x="470" y="242" text-anchor="middle" font-family="Consolas, monospace" font-size="18" fill="#556">using ll = long long;</text>
+  <text x="470" y="270" text-anchor="middle" font-family="Consolas, monospace" font-size="18" fill="#556">using Str = string;</text>
+  <circle cx="470" cy="312" r="36" fill="#f3ebff" stroke="#b8a6e6" stroke-width="2"/>
+  <circle cx="457" cy="306" r="4.5" fill="#444"/>
+  <circle cx="483" cy="306" r="4.5" fill="#444"/>
+  <path d="M457 326 Q470 337 483 326" fill="none" stroke="#8e72d5" stroke-width="3"/>
+</g>
+
+<g filter="url(#shadow3)">
+  <rect x="634" y="120" width="235" height="240" rx="24" fill="#fff" stroke="#d6e7c7" stroke-width="2"/>
+  <rect x="634" y="120" width="235" height="48" rx="24" fill="#ebf7dd"/>
+  <text x="751" y="151" text-anchor="middle" font-family="Consolas, monospace" font-size="24" fill="#4a6d2b" font-weight="700">enum</text>
+  <text x="751" y="208" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="18" fill="#54614c">表示有限状态或选项</text>
+  <text x="751" y="242" text-anchor="middle" font-family="Consolas, monospace" font-size="18" fill="#556">Spring / Summer / Autumn</text>
+  <text x="751" y="270" text-anchor="middle" font-family="Consolas, monospace" font-size="18" fill="#556">Easy / Normal / Hard</text>
+  <circle cx="751" cy="312" r="36" fill="#eff9e7" stroke="#bad69d" stroke-width="2"/>
+  <circle cx="738" cy="306" r="4.5" fill="#444"/>
+  <circle cx="764" cy="306" r="4.5" fill="#444"/>
+  <path d="M738 326 Q751 337 764 326" fill="none" stroke="#6aa04b" stroke-width="3"/>
+</g>
+
+<text x="470" y="412" text-anchor="middle" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="17" fill="#5f6d7f">它们不是在互相竞争，而是在不同场景里一起配合工作</text>
+</svg>

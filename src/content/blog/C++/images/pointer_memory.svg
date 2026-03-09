@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="300" viewBox="0 0 920 300">
+  <defs>
+    <style>
+      .title{font:700 24px 'Segoe UI',Arial,sans-serif;fill:#2b2d42}
+      .label{font:600 18px 'Segoe UI',Arial,sans-serif;fill:#333}
+      .small{font:500 15px 'Segoe UI',Arial,sans-serif;fill:#555}
+      .mono{font:700 26px Consolas,monospace;fill:#0f172a}
+      .addr{font:600 14px Consolas,monospace;fill:#6d6875}
+      .box{fill:#f8fafc;stroke:#94a3b8;stroke-width:2;rx:14}
+      .ptr{fill:#ecfeff;stroke:#06b6d4;stroke-width:2;rx:14}
+      .target{fill:#eef2ff;stroke:#6366f1;stroke-width:2;rx:14}
+      .arrow{stroke:#334155;stroke-width:4;fill:none;marker-end:url(#m);stroke-dasharray:12 8;animation:dash 2s linear infinite;}
+      .pulse{animation:pulse 1.8s ease-in-out infinite;transform-origin:center;}
+      @keyframes dash{to{stroke-dashoffset:-40;}}
+      @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.03);}}
+    </style>
+    <marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <text x="24" y="36" class="title">指针里装的不是值本身，而是另一个变量的地址</text>
+
+  <rect x="35" y="75" width="250" height="170" class="ptr pulse"/>
+  <text x="58" y="110" class="label">int* p = &amp;x;</text>
+  <text x="58" y="158" class="mono">0x500</text>
+  <text x="58" y="185" class="small">p 里存放的是地址</text>
+  <text x="58" y="208" class="addr">p 自己也有地址，例如 0x900</text>
+
+  <rect x="560" y="75" width="250" height="170" class="target"/>
+  <text x="585" y="110" class="label">int x = 42;</text>
+  <text x="620" y="165" class="mono">42</text>
+  <text x="605" y="195" class="addr">x 的地址: 0x500</text>
+
+  <path d="M285 160 C390 160, 450 160, 560 160" class="arrow"/>
+  <text x="345" y="137" class="label">*p 就是顺着地址找到 x</text>
+</svg>
