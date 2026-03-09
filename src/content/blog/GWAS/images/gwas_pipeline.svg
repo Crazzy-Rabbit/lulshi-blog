@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420">
+<rect width="1200" height="420" fill="#f7fbff"/>
+<text x="600" y="70" text-anchor="middle" font-size="34" font-family="Arial" fill="#1f4e79" font-weight="700">一个 GWAS 流程图</text>
+<text x="600" y="102" text-anchor="middle" font-size="18" font-family="Arial" fill="#5a7188">从 QC 到回归，再到 summary statistics 和可视化</text>
+
+<g transform="translate(70,165)">
+  <rect x="0" y="0" width="180" height="90" rx="24" fill="#eef6ff" stroke="#9bc2ea" stroke-width="3"/>
+  <text x="90" y="42" text-anchor="middle" font-size="24" font-family="Arial" fill="#1f4e79" font-weight="700">QC</text>
+  <text x="90" y="68" text-anchor="middle" font-size="18" font-family="Arial" fill="#56738f">MAF / HWE / Missing</text>
+</g>
+
+<g transform="translate(300,165)">
+  <rect x="0" y="0" width="180" height="90" rx="24" fill="#f1fbf0" stroke="#bfe0bb" stroke-width="3"/>
+  <text x="90" y="42" text-anchor="middle" font-size="24" font-family="Arial" fill="#2f6b2b" font-weight="700">Coding</text>
+  <text x="90" y="68" text-anchor="middle" font-size="18" font-family="Arial" fill="#4f7f49">0/1/2 or dosage</text>
+</g>
+
+<g transform="translate(530,165)">
+  <rect x="0" y="0" width="180" height="90" rx="24" fill="#fff8ef" stroke="#f2c98e" stroke-width="3"/>
+  <text x="90" y="42" text-anchor="middle" font-size="24" font-family="Arial" fill="#8a5a16" font-weight="700">Regression</text>
+  <text x="90" y="68" text-anchor="middle" font-size="18" font-family="Arial" fill="#8a5a16">OLS / Logit / LMM</text>
+</g>
+
+<g transform="translate(760,165)">
+  <rect x="0" y="0" width="180" height="90" rx="24" fill="#f7f3ff" stroke="#d1c3f2" stroke-width="3"/>
+  <text x="90" y="42" text-anchor="middle" font-size="24" font-family="Arial" fill="#5b4d9a" font-weight="700">Summary</text>
+  <text x="90" y="68" text-anchor="middle" font-size="18" font-family="Arial" fill="#5b4d9a">BETA / SE / P / N</text>
+</g>
+
+<g transform="translate(990,165)">
+  <rect x="0" y="0" width="140" height="90" rx="24" fill="#fff0f5" stroke="#e6b3cc" stroke-width="3"/>
+  <text x="70" y="42" text-anchor="middle" font-size="24" font-family="Arial" fill="#9e4d73" font-weight="700">Plots</text>
+  <text x="70" y="68" text-anchor="middle" font-size="18" font-family="Arial" fill="#9e4d73">QQ / Manhattan</text>
+</g>
+
+<path d="M250 210 L300 210" stroke="#6f92b6" stroke-width="8" fill="none" stroke-linecap="round"/>
+<polygon points="300,210 278,198 278,222" fill="#6f92b6"/>
+<path d="M480 210 L530 210" stroke="#6f92b6" stroke-width="8" fill="none" stroke-linecap="round"/>
+<polygon points="530,210 508,198 508,222" fill="#6f92b6"/>
+<path d="M710 210 L760 210" stroke="#6f92b6" stroke-width="8" fill="none" stroke-linecap="round"/>
+<polygon points="760,210 738,198 738,222" fill="#6f92b6"/>
+<path d="M940 210 L990 210" stroke="#6f92b6" stroke-width="8" fill="none" stroke-linecap="round"/>
+<polygon points="990,210 968,198 968,222" fill="#6f92b6"/>
+
+<text x="600" y="350" text-anchor="middle" font-size="22" font-family="Arial" fill="#1f4e79">本质问题始终不变：控制混杂后，SNP 的 β 是否显著不为 0</text>
+</svg>
