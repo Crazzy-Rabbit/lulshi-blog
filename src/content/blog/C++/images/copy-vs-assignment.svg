@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="320" viewBox="0 0 1100 320">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="1100" height="320" fill="#ffffff"/>
+  <text x="40" y="38" font-size="24" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#0f172a">
+    拷贝构造 和 赋值运算符，不是一回事
+  </text>
+
+  <rect x="50" y="80" width="450" height="180" rx="18" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"/>
+  <rect x="50" y="80" width="450" height="50" rx="18" fill="#60a5fa"/>
+  <text x="76" y="112" font-size="22" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#ffffff">
+    场景一：对象正在被创建
+  </text>
+  <text x="82" y="162" font-size="22" font-family="Consolas, monospace" fill="#1e3a8a">Book b2 = b1;</text>
+  <text x="82" y="198" font-size="18" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#334155">
+    b2 还不存在，现在是“出生时照着 b1 初始化”
+  </text>
+  <text x="82" y="232" font-size="20" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#1d4ed8">
+    调用：拷贝构造函数
+  </text>
+
+  <rect x="600" y="80" width="450" height="180" rx="18" fill="#f0fdf4" stroke="#34d399" stroke-width="2"/>
+  <rect x="600" y="80" width="450" height="50" rx="18" fill="#34d399"/>
+  <text x="626" y="112" font-size="22" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#ffffff">
+    场景二：对象早已存在
+  </text>
+  <text x="632" y="162" font-size="22" font-family="Consolas, monospace" fill="#166534">b2 = b1;</text>
+  <text x="632" y="198" font-size="18" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#334155">
+    b2 已经活着了，现在只是把内容改成和 b1 一样
+  </text>
+  <text x="632" y="232" font-size="20" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#15803d">
+    调用：赋值运算符
+  </text>
+
+  <line x1="500" y1="170" x2="600" y2="170" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <text x="40" y="295" font-size="15" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#475569">
+    判断关键：左边这个对象，此刻是不是“刚出生”。刚出生就是拷贝构造；早已存在就是赋值运算符。
+  </text>
+</svg>

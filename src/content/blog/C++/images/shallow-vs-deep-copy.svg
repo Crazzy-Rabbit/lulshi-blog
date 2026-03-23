@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="420" viewBox="0 0 1120 420">
+  <defs>
+    <marker id="arrow3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="1120" height="420" fill="#ffffff"/>
+  <text x="40" y="38" font-size="24" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#0f172a">
+    浅拷贝 vs 深拷贝
+  </text>
+
+  <rect x="50" y="80" width="470" height="280" rx="18" fill="#fff1f2" stroke="#fb7185" stroke-width="2"/>
+  <rect x="50" y="80" width="470" height="52" rx="18" fill="#fb7185"/>
+  <text x="78" y="113" font-size="22" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#ffffff">
+    浅拷贝：只复制“指针值”
+  </text>
+
+  <rect x="90" y="170" width="120" height="70" rx="12" fill="#ffffff" stroke="#e11d48" stroke-width="2"/>
+  <text x="120" y="198" font-size="20" font-weight="700" font-family="Consolas, monospace" fill="#9f1239">a</text>
+  <text x="110" y="225" font-size="16" font-family="Consolas, monospace" fill="#334155">value = p</text>
+
+  <rect x="250" y="170" width="120" height="70" rx="12" fill="#ffffff" stroke="#e11d48" stroke-width="2"/>
+  <text x="280" y="198" font-size="20" font-weight="700" font-family="Consolas, monospace" fill="#9f1239">b</text>
+  <text x="270" y="225" font-size="16" font-family="Consolas, monospace" fill="#334155">value = p</text>
+
+  <rect x="390" y="160" width="90" height="90" rx="12" fill="#ffe4e6" stroke="#e11d48" stroke-width="2"/>
+  <text x="414" y="205" font-size="22" font-weight="700" font-family="Consolas, monospace" fill="#9f1239">10</text>
+
+  <line x1="210" y1="205" x2="390" y2="205" stroke="#475569" stroke-width="3" marker-end="url(#arrow3)"/>
+  <line x1="370" y1="205" x2="390" y2="205" stroke="#475569" stroke-width="3" marker-end="url(#arrow3)"/>
+
+  <text x="92" y="290" font-size="17" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#7f1d1d">
+    两个对象都指向同一块底层资源
+  </text>
+  <text x="92" y="320" font-size="17" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#7f1d1d">
+    改一个可能影响另一个，析构时还可能重复释放
+  </text>
+
+  <rect x="600" y="80" width="470" height="280" rx="18" fill="#ecfeff" stroke="#22c55e" stroke-width="2"/>
+  <rect x="600" y="80" width="470" height="52" rx="18" fill="#22c55e"/>
+  <text x="628" y="113" font-size="22" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#ffffff">
+    深拷贝：复制出独立资源
+  </text>
+
+  <rect x="640" y="170" width="120" height="70" rx="12" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <text x="670" y="198" font-size="20" font-weight="700" font-family="Consolas, monospace" fill="#166534">a</text>
+  <text x="658" y="225" font-size="16" font-family="Consolas, monospace" fill="#334155">value = p1</text>
+
+  <rect x="800" y="170" width="120" height="70" rx="12" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <text x="830" y="198" font-size="20" font-weight="700" font-family="Consolas, monospace" fill="#166534">b</text>
+  <text x="818" y="225" font-size="16" font-family="Consolas, monospace" fill="#334155">value = p2</text>
+
+  <rect x="945" y="150" width="80" height="80" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="970" y="195" font-size="22" font-weight="700" font-family="Consolas, monospace" fill="#166534">10</text>
+
+  <rect x="945" y="245" width="80" height="80" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="970" y="290" font-size="22" font-weight="700" font-family="Consolas, monospace" fill="#166534">10</text>
+
+  <line x1="760" y1="205" x2="945" y2="190" stroke="#475569" stroke-width="3" marker-end="url(#arrow3)"/>
+  <line x1="920" y1="205" x2="945" y2="285" stroke="#475569" stroke-width="3" marker-end="url(#arrow3)"/>
+
+  <text x="642" y="290" font-size="17" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#14532d">
+    每个对象都有自己的底层资源
+  </text>
+  <text x="642" y="320" font-size="17" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#14532d">
+    改 b 不会影响 a，析构时也各自释放自己的资源
+  </text>
+
+  <text x="40" y="395" font-size="15" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#475569">
+    最该记住的一句话：复制资源拥有者时，不能只复制“地址”，要想清楚“所有权”是否也要复制一份。
+  </text>
+</svg>

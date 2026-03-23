@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="360" viewBox="0 0 1120 360">
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="1120" height="360" fill="#ffffff"/>
+  <text x="40" y="38" font-size="24" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#0f172a">
+    拷贝构造函数常见触发时机
+  </text>
+
+  <rect x="50" y="80" width="280" height="200" rx="16" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"/>
+  <rect x="50" y="80" width="280" height="46" rx="16" fill="#60a5fa"/>
+  <text x="74" y="109" font-size="20" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#ffffff">
+    1. 初始化新对象
+  </text>
+  <text x="74" y="160" font-size="20" font-family="Consolas, monospace" fill="#1e3a8a">Book b2 = b1;</text>
+  <text x="74" y="194" font-size="20" font-family="Consolas, monospace" fill="#1e3a8a">Book b3(b1);</text>
+  <text x="74" y="235" font-size="16" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#334155">
+    新对象在创建时，
+  </text>
+  <text x="74" y="260" font-size="16" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#334155">
+    用已有对象来初始化
+  </text>
+
+  <rect x="420" y="80" width="280" height="200" rx="16" fill="#f0fdf4" stroke="#34d399" stroke-width="2"/>
+  <rect x="420" y="80" width="280" height="46" rx="16" fill="#34d399"/>
+  <text x="444" y="109" font-size="20" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#ffffff">
+    2. 按值传参
+  </text>
+  <text x="444" y="160" font-size="19" font-family="Consolas, monospace" fill="#166534">void f(Book b)</text>
+  <text x="444" y="194" font-size="19" font-family="Consolas, monospace" fill="#166534">f(b1);</text>
+  <text x="444" y="235" font-size="16" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#334155">
+    参数 b 本身也是
+  </text>
+  <text x="444" y="260" font-size="16" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#334155">
+    一个新对象
+  </text>
+
+  <rect x="790" y="80" width="280" height="200" rx="16" fill="#fefce8" stroke="#f59e0b" stroke-width="2"/>
+  <rect x="790" y="80" width="280" height="46" rx="16" fill="#f59e0b"/>
+  <text x="814" y="109" font-size="20" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#ffffff">
+    3. 按值返回
+  </text>
+  <text x="814" y="160" font-size="18" font-family="Consolas, monospace" fill="#92400e">Book makeBook()</text>
+  <text x="814" y="194" font-size="18" font-family="Consolas, monospace" fill="#92400e">return temp;</text>
+  <text x="814" y="235" font-size="16" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#334155">
+    语义上会涉及复制，
+  </text>
+  <text x="814" y="260" font-size="16" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#334155">
+    但可能被优化省略
+  </text>
+
+  <line x1="330" y1="180" x2="420" y2="180" stroke="#64748b" stroke-width="3" marker-end="url(#arrow2)"/>
+  <line x1="700" y1="180" x2="790" y2="180" stroke="#64748b" stroke-width="3" marker-end="url(#arrow2)"/>
+
+  <text x="40" y="325" font-size="15" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#475569">
+    初学阶段最该记住的是前两类：初始化新对象、按值传参。按值返回先知道“语义上涉及拷贝”即可。
+  </text>
+</svg>
