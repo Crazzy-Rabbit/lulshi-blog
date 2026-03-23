@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"></path>
+    </marker>
+  </defs>
+
+  <rect width="960" height="360" fill="#ffffff"></rect>
+
+  <text x="40" y="36" font-size="24" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#0f172a">
+    类和对象：图纸与实例
+  </text>
+
+  <rect x="40" y="60" width="300" height="240" rx="16" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"></rect>
+  <rect x="40" y="60" width="300" height="48" rx="16" fill="#60a5fa"></rect>
+  <text x="62" y="92" font-size="22" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#ffffff">
+    class Player
+  </text>
+
+  <text x="62" y="135" font-size="18" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#1e3a8a">
+    成员变量
+  </text>
+  <text x="62" y="165" font-size="18" font-family="Consolas, monospace" fill="#1f2937">string name;</text>
+  <text x="62" y="193" font-size="18" font-family="Consolas, monospace" fill="#1f2937">int hp;</text>
+
+  <text x="62" y="235" font-size="18" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#1e3a8a">
+    成员函数
+  </text>
+  <text x="62" y="265" font-size="18" font-family="Consolas, monospace" fill="#1f2937">void heal(int amount);</text>
+  <text x="62" y="293" font-size="18" font-family="Consolas, monospace" fill="#1f2937">void showStatus();</text>
+
+  <line x1="340" y1="140" x2="430" y2="120" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"></line>
+  <line x1="340" y1="220" x2="430" y2="260" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"></line>
+
+  <rect x="430" y="70" width="210" height="110" rx="14" fill="#f0fdf4" stroke="#34d399" stroke-width="2"></rect>
+  <rect x="430" y="70" width="210" height="40" rx="14" fill="#34d399"></rect>
+  <text x="452" y="96" font-size="20" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#ffffff">
+    p1 : Player
+  </text>
+  <text x="452" y="130" font-size="18" font-family="Consolas, monospace" fill="#1f2937">name = "Alice"</text>
+  <text x="452" y="158" font-size="18" font-family="Consolas, monospace" fill="#1f2937">hp = 70</text>
+
+  <rect x="430" y="210" width="210" height="110" rx="14" fill="#fefce8" stroke="#f59e0b" stroke-width="2"></rect>
+  <rect x="430" y="210" width="210" height="40" rx="14" fill="#f59e0b"></rect>
+  <text x="452" y="236" font-size="20" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#ffffff">
+    p2 : Player
+  </text>
+  <text x="452" y="270" font-size="18" font-family="Consolas, monospace" fill="#1f2937">name = "Luna"</text>
+  <text x="452" y="298" font-size="18" font-family="Consolas, monospace" fill="#1f2937">hp = 100</text>
+
+  <rect x="700" y="100" width="220" height="150" rx="16" fill="#fff7ed" stroke="#fb923c" stroke-width="2"></rect>
+  <text x="724" y="138" font-size="20" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#9a3412">
+    你要记住
+  </text>
+  <text x="724" y="174" font-size="17" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#7c2d12">
+    1. 类是图纸，不是具体对象
+  </text>
+  <text x="724" y="204" font-size="17" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#7c2d12">
+    2. 一个类可以创建多个对象
+  </text>
+  <text x="724" y="234" font-size="17" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#7c2d12">
+    3. 每个对象有自己的数据
+  </text>
+
+  <text x="40" y="335" font-size="15" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#475569">
+    图纸决定“长什么样、能做什么”；对象才是真正被创建出来并参与运行的实体。
+  </text>
+</svg>

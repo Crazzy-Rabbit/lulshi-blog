@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="380" viewBox="0 0 1080 380">
+  <defs>
+    <marker id="arrow3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="1080" height="380" fill="#ffffff"/>
+  <text x="40" y="38" font-size="24" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#0f172a">
+    对象生命周期：进入作用域时创建，离开作用域时销毁
+  </text>
+
+  <rect x="60" y="80" width="960" height="220" rx="18" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+  <text x="84" y="116" font-size="18" font-weight="700" font-family="Consolas, monospace" fill="#0f172a">int main() {</text>
+  <text x="116" y="150" font-size="18" font-family="Consolas, monospace" fill="#0f172a">cout &lt;&lt; "程序开始";</text>
+  <text x="116" y="184" font-size="18" font-family="Consolas, monospace" fill="#0f172a">{</text>
+  <text x="148" y="218" font-size="18" font-family="Consolas, monospace" fill="#0f172a">Demo d;</text>
+  <text x="148" y="252" font-size="18" font-family="Consolas, monospace" fill="#0f172a">cout &lt;&lt; "对象正在工作";</text>
+  <text x="116" y="286" font-size="18" font-family="Consolas, monospace" fill="#0f172a">}</text>
+  <text x="116" y="320" font-size="18" font-family="Consolas, monospace" fill="#0f172a">cout &lt;&lt; "对象已离开作用域";</text>
+
+  <line x1="220" y1="200" x2="450" y2="200" stroke="#475569" stroke-width="3" marker-end="url(#arrow3)"/>
+  <line x1="660" y1="200" x2="870" y2="200" stroke="#475569" stroke-width="3" marker-end="url(#arrow3)"/>
+
+  <rect x="450" y="145" width="210" height="110" rx="16" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text x="484" y="185" font-size="21" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#166534">
+    进入内部作用域
+  </text>
+  <text x="502" y="218" font-size="17" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#166534">
+    调用构造函数
+  </text>
+
+  <rect x="870" y="145" width="120" height="110" rx="16" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="894" y="185" font-size="21" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#991b1b">
+    离开作用域
+  </text>
+  <text x="896" y="218" font-size="17" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#991b1b">
+    调用析构函数
+  </text>
+
+  <text x="60" y="350" font-size="15" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#475569">
+    对于普通局部对象，生命周期通常和作用域绑定；这也是“自动创建、自动销毁”的基础。
+  </text>
+</svg>

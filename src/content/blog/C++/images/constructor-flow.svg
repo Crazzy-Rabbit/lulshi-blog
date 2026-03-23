@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="260" viewBox="0 0 1100 260">
+  <defs>
+    <marker id="arrow3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"></path>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="260" fill="#ffffff"></rect>
+
+  <text x="40" y="38" font-size="24" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#0f172a">
+    构造函数的执行流程
+  </text>
+
+  <rect x="40" y="90" width="180" height="90" rx="16" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"></rect>
+  <text x="64" y="128" font-size="18" font-family="Consolas, monospace" fill="#1e3a8a">
+    Player p1("Arthur", 100);
+  </text>
+  <text x="70" y="155" font-size="15" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#334155">
+    写下创建对象的代码
+  </text>
+
+  <line x1="220" y1="135" x2="280" y2="135" stroke="#475569" stroke-width="3" marker-end="url(#arrow3)"></line>
+
+  <rect x="280" y="90" width="160" height="90" rx="16" fill="#f0fdf4" stroke="#34d399" stroke-width="2"></rect>
+  <text x="316" y="126" font-size="18" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#166534">
+    分配对象空间
+  </text>
+  <text x="320" y="155" font-size="15" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#334155">
+    准备存放成员变量
+  </text>
+
+  <line x1="440" y1="135" x2="500" y2="135" stroke="#475569" stroke-width="3" marker-end="url(#arrow3)"></line>
+
+  <rect x="500" y="90" width="180" height="90" rx="16" fill="#fefce8" stroke="#f59e0b" stroke-width="2"></rect>
+  <text x="536" y="126" font-size="18" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#92400e">
+    自动调用构造函数
+  </text>
+  <text x="542" y="155" font-size="15" font-family="Consolas, monospace" fill="#334155">
+    Player(string n, int h)
+  </text>
+
+  <line x1="680" y1="135" x2="740" y2="135" stroke="#475569" stroke-width="3" marker-end="url(#arrow3)"></line>
+
+  <rect x="740" y="90" width="160" height="90" rx="16" fill="#fdf2f8" stroke="#ec4899" stroke-width="2"></rect>
+  <text x="774" y="126" font-size="18" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#9d174d">
+    完成初始化
+  </text>
+  <text x="776" y="155" font-size="15" font-family="Consolas, monospace" fill="#334155">
+    name / hp 就位
+  </text>
+
+  <line x1="900" y1="135" x2="960" y2="135" stroke="#475569" stroke-width="3" marker-end="url(#arrow3)"></line>
+
+  <rect x="960" y="90" width="100" height="90" rx="16" fill="#ecfeff" stroke="#06b6d4" stroke-width="2"></rect>
+  <text x="985" y="126" font-size="18" font-weight="700" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#155e75">
+    可使用
+  </text>
+  <text x="975" y="155" font-size="15" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#334155">
+    安全调用方法
+  </text>
+
+  <text x="40" y="225" font-size="15" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fill="#475569">
+    关键点：构造函数不是你“手动顺便调用”的普通函数，而是对象创建时自动触发的初始化机制。
+  </text>
+</svg>
