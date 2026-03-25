@@ -54,7 +54,7 @@ npm run preview
 # git remote add origin https://github.com/Crazzy-Rabbit/lulshi-blog.git
 
 git add .
-git commit -m "fix astro build types"
+git commit -m "add files"
 git push
 ```
 
