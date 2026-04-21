@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="320" viewBox="0 0 900 320">
+  <style>
+    .title { font: 700 24px 'Arial', 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #1f2d3d; }
+    .label { font: 600 22px 'Arial', 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #243b53; }
+    .small { font: 16px 'Arial', 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #486581; }
+    .box { fill: #f8fafc; stroke: #5b6f92; stroke-width: 2.2; rx: 18; ry: 18; }
+    .good { fill: #edf7ed; stroke: #4f8a5b; }
+    .warn { fill: #fff6e5; stroke: #c9861a; }
+    .arrow { stroke: #5b6f92; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#5b6f92"/>
+    </marker>
+  </defs>
+  <text x="450" y="40" text-anchor="middle" class="title">继承适合 is-a，组合更适合 has-a</text>
+
+  <rect x="70" y="90" width="340" height="170" class="box good"/>
+  <text x="240" y="125" text-anchor="middle" class="label">适合继承</text>
+  <text x="240" y="165" text-anchor="middle" class="small">Dog 是一种 Animal</text>
+  <text x="240" y="198" text-anchor="middle" class="small">Student 是一种 Person</text>
+  <text x="240" y="231" text-anchor="middle" class="small">能自然说出“X 是一种 Y”</text>
+
+  <rect x="490" y="90" width="340" height="170" class="box warn"/>
+  <text x="660" y="125" text-anchor="middle" class="label">更适合组合</text>
+  <text x="660" y="165" text-anchor="middle" class="small">Car 有一个 Engine</text>
+  <text x="660" y="198" text-anchor="middle" class="small">House 有多个 Room</text>
+  <text x="660" y="231" text-anchor="middle" class="small">关系更像“拥有”，不是“属于一种”</text>
+
+  <path d="M410 175 L486 175" class="arrow"/>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360">
+  <style>
+    .title { font: 700 24px 'Arial', 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #1f2d3d; }
+    .label { font: 600 20px 'Arial', 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #243b53; }
+    .small { font: 16px 'Arial', 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #486581; }
+    .box { fill: #f8fafc; stroke: #5b6f92; stroke-width: 2.2; rx: 18; ry: 18; }
+    .arrow { stroke: #5b6f92; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#5b6f92"/>
+    </marker>
+  </defs>
+  <text x="450" y="42" text-anchor="middle" class="title">继承：把共性放到基类，把差异放到派生类</text>
+
+  <rect x="335" y="80" width="230" height="120" class="box"/>
+  <text x="450" y="118" text-anchor="middle" class="label">Person</text>
+  <text x="450" y="150" text-anchor="middle" class="small">共有信息：name, age</text>
+  <text x="450" y="178" text-anchor="middle" class="small">共有行为：showBasicInfo()</text>
+
+  <rect x="85" y="240" width="220" height="90" class="box"/>
+  <text x="195" y="278" text-anchor="middle" class="label">Student</text>
+  <text x="195" y="306" text-anchor="middle" class="small">额外信息：school, grade</text>
+
+  <rect x="340" y="240" width="220" height="90" class="box"/>
+  <text x="450" y="278" text-anchor="middle" class="label">Teacher</text>
+  <text x="450" y="306" text-anchor="middle" class="small">额外信息：subject, title</text>
+
+  <rect x="595" y="240" width="220" height="90" class="box"/>
+  <text x="705" y="278" text-anchor="middle" class="label">Admin</text>
+  <text x="705" y="306" text-anchor="middle" class="small">额外信息：department</text>
+
+  <path d="M385 200 L230 238" class="arrow"/>
+  <path d="M450 200 L450 236" class="arrow"/>
+  <path d="M515 200 L670 238" class="arrow"/>
+</svg>

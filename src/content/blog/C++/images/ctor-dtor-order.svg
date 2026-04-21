@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="340" viewBox="0 0 900 340">
+  <style>
+    .title { font: 700 24px 'Arial', 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #1f2d3d; }
+    .label { font: 600 20px 'Arial', 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #243b53; }
+    .small { font: 16px 'Arial', 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #486581; }
+    .box { fill: #f8fafc; stroke: #5b6f92; stroke-width: 2.2; rx: 18; ry: 18; }
+    .arrow1 { stroke: #4f8a5b; stroke-width: 2.8; fill: none; marker-end: url(#arrow1); }
+    .arrow2 { stroke: #c9861a; stroke-width: 2.8; fill: none; marker-end: url(#arrow2); }
+  </style>
+  <defs>
+    <marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#4f8a5b"/>
+    </marker>
+    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#c9861a"/>
+    </marker>
+  </defs>
+  <text x="450" y="40" text-anchor="middle" class="title">派生类对象的构造与析构顺序</text>
+
+  <rect x="90" y="90" width="300" height="190" class="box"/>
+  <text x="240" y="125" text-anchor="middle" class="label">构造阶段</text>
+  <text x="240" y="165" text-anchor="middle" class="small">1. 先构造 Base</text>
+  <text x="240" y="205" text-anchor="middle" class="small">2. 再构造 Derived</text>
+  <path d="M240 178 L240 228" class="arrow1"/>
+
+  <rect x="510" y="90" width="300" height="190" class="box"/>
+  <text x="660" y="125" text-anchor="middle" class="label">析构阶段</text>
+  <text x="660" y="165" text-anchor="middle" class="small">1. 先析构 Derived</text>
+  <text x="660" y="205" text-anchor="middle" class="small">2. 再析构 Base</text>
+  <path d="M660 192 L660 142" class="arrow2"/>
+</svg>
