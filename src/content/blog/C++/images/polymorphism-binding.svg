@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520">
+  <style>
+    .t{font: 24px sans-serif; fill:#22324a}
+    .s{font: 20px sans-serif; fill:#2f4f6f}
+    .b{fill:#f6f8fb; stroke:#6d8bb3; stroke-width:2; rx:16}
+    .d{fill:#fff8ef; stroke:#c98b3b; stroke-width:2; rx:16}
+    .arrow{stroke:#576b86; stroke-width:3; marker-end:url(#m)}
+  </style>
+  <defs>
+    <marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#576b86"/>
+    </marker>
+  </defs>
+  <text x="490" y="44" text-anchor="middle" class="t">多态中的两种绑定方式</text>
+
+  <rect x="50" y="80" width="390" height="360" class="b"/>
+  <text x="245" y="120" text-anchor="middle" class="t">没有 virtual</text>
+  <rect x="95" y="155" width="120" height="60" class="d"/>
+  <text x="155" y="192" text-anchor="middle" class="s">Animal&amp; a</text>
+  <rect x="265" y="155" width="120" height="60" class="d"/>
+  <text x="325" y="192" text-anchor="middle" class="s">Dog 对象</text>
+  <line x1="215" y1="185" x2="265" y2="185" class="arrow"/>
+  <rect x="110" y="270" width="270" height="90" class="d"/>
+  <text x="245" y="308" text-anchor="middle" class="s">调用 a.speak()</text>
+  <text x="245" y="340" text-anchor="middle" class="s">按声明类型选到 Animal::speak()</text>
+
+  <rect x="540" y="80" width="390" height="360" class="b"/>
+  <text x="735" y="120" text-anchor="middle" class="t">基类函数是 virtual</text>
+  <rect x="585" y="155" width="120" height="60" class="d"/>
+  <text x="645" y="192" text-anchor="middle" class="s">Animal&amp; a</text>
+  <rect x="755" y="155" width="120" height="60" class="d"/>
+  <text x="815" y="192" text-anchor="middle" class="s">Dog 对象</text>
+  <line x1="705" y1="185" x2="755" y2="185" class="arrow"/>
+  <rect x="600" y="255" width="270" height="110" class="d"/>
+  <text x="735" y="295" text-anchor="middle" class="s">调用 a.speak()</text>
+  <text x="735" y="327" text-anchor="middle" class="s">运行时查看真实对象类型</text>
+  <text x="735" y="359" text-anchor="middle" class="s">最终调到 Dog::speak()</text>
+</svg>
